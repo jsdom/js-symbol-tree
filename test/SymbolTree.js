@@ -437,3 +437,69 @@ test('Multiple SymbolTree instances should not conflict', function(t) {
 
         t.end();
 });
+
+test('look up preceding with a previous sibling', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const b = {};
+
+        tree.insertAfter(b, a);
+
+        t.equal(null, tree.preceding(a));
+        t.equal(a, tree.preceding(b));
+
+        t.end();
+});
+
+test('look up preceding with a previous sibling with a child', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertAfter(b, a);
+
+        t.equal(null, tree.preceding(a));
+        t.equal(a   , tree.preceding(aa));
+        t.equal(aa  , tree.preceding(ab));
+        t.equal(ab  , tree.preceding(b));
+
+        t.end();
+});
+
+test('look up preceding with a previous sibling with a descendants', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertAfter(b, a);
+
+        t.equal(abaa, tree.preceding(b));
+
+        t.end();
+});
+
+test('look up preceding using a specified root', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+
+        tree.insertLast(aa, a);
+
+        t.equal(null, tree.preceding(a, a));
+        t.equal(a   , tree.preceding(aa, a));
+        t.equal(null, tree.preceding(aa, aa));
+
+        t.end();
+});
