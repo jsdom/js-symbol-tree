@@ -503,3 +503,79 @@ test('look up preceding using a specified root', function(t) {
 
         t.end();
 });
+
+test('following with a child', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+
+        tree.insertLast(aa, a);
+
+        t.equal(aa  , tree.following(a));
+        t.equal(null, tree.following(aa));
+
+        t.end();
+});
+
+test('following with a next sibling', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const b = {};
+
+        tree.insertAfter(b, a);
+
+        t.equal(b   , tree.following(a));
+        t.equal(null, tree.following(b));
+
+        t.end();
+});
+
+test('following with sibling of parent', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertAfter(b, a);
+
+        t.equal(b, tree.following(aa));
+
+        t.end();
+});
+
+test('following with sibling of grandparent', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const aaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(aaa, aa);
+        tree.insertAfter(b, a);
+
+        t.equal(b, tree.following(aaa));
+
+        t.end();
+});
+
+test('following using a specified root', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const aaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(aaa, aa);
+        tree.insertAfter(b, a);
+
+        t.equal(null, tree.following(aaa, aaa));
+        t.equal(null, tree.following(aaa, aa));
+        t.equal(null, tree.following(aaa, a));
+        t.equal(aa  , tree.following(a, a));
+        t.equal(aaa , tree.following(aa, a));
+
+        t.end();
+});
