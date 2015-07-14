@@ -579,3 +579,17 @@ test('following using a specified root', function(t) {
 
         t.end();
 });
+
+test('following with skipChildren', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertAfter(b, a);
+
+        t.equal(b, tree.following(a, null, true));
+
+        t.end();
+});
