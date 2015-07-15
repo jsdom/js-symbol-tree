@@ -438,6 +438,26 @@ test('Multiple SymbolTree instances should not conflict', function(t) {
         t.end();
 });
 
+test('lastInclusiveDescendant', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertAfter(b, a);
+
+        t.equal(abaa, tree.lastInclusiveDescendant(a));
+
+        t.end();
+});
+
 test('look up preceding with a previous sibling', function(t) {
         const tree = new SymbolTree();
         const a = {};
