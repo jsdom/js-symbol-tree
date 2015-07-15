@@ -613,3 +613,27 @@ test('following with skipChildren', function(t) {
 
         t.end();
 });
+
+test('childrenToArray', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        t.deepEqual([aa, ab, ac], tree.childrenToArray(a));
+
+        const arr = ['a', 5];
+        tree.childrenToArray(a, arr);
+        t.deepEqual(['a', 5, aa, ab, ac], arr);
+
+        t.end();
+});
