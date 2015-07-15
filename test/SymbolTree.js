@@ -637,3 +637,28 @@ test('childrenToArray', function(t) {
 
         t.end();
 });
+
+test('treeToArray', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertAfter(b, a);
+
+        t.deepEqual([a, aa, ab, aba, abaa], tree.treeToArray(a));
+        t.deepEqual([aa, ab, aba, abaa], tree.treeToArray(a, null, false));
+
+        const arr = ['a', 5];
+        tree.treeToArray(a, arr);
+        t.deepEqual(['a', 5, a, aa, ab, aba, abaa], arr);
+
+        t.end();
+});
