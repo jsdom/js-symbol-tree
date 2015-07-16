@@ -6,7 +6,7 @@
   "scripts": {
     "test": "istanbul cover test/SymbolTree.js",
     "posttest": "jshint lib test && jscs lib test",
-    "documentation": "mkdir -p jsdoc && jsdoc2md --src lib/SymbolTree.js > ./jsdoc/api.md"
+    "documentation": "jsdoc2md --src lib/SymbolTree.js > ./jsdoc/api.md"
   },
   "repository": {
     "type": "git",
