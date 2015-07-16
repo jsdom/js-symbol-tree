@@ -673,6 +673,57 @@ test('childrenToArray with filter', function(t) {
         t.end();
 });
 
+test('children iterator', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        const results = [];
+
+        for (const object of tree.childrenIterator(a)) {
+                results.push(object);
+        }
+        t.deepEqual([aa, ab, ac], results);
+
+        t.end();
+});
+
+test('children iterator return value using a generator', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const ac = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(ac, a);
+
+        function* generator(it) {
+                const returnValue = yield* it;
+                t.equal(a, returnValue);
+        }
+
+        const results = [];
+
+        for (const object of generator(tree.childrenIterator(a))) {
+                results.push(object);
+        }
+        t.deepEqual([aa, ab, ac], results);
+
+        t.end();
+});
+
 test('treeToArray', function(t) {
         const tree = new SymbolTree();
         const a = {};
