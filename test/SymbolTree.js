@@ -638,6 +638,41 @@ test('childrenToArray', function(t) {
         t.end();
 });
 
+test('childrenToArray with filter', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        const filter = function(object) {
+                t.equal(this, undefined);
+
+                return object !== ab;
+        };
+
+        t.deepEqual([aa, ac], tree.childrenToArray(a, null, filter));
+
+        const thisArg = {a: 123};
+        const filterThis = function(object) {
+                t.equal(this, thisArg);
+
+                return object !== ab;
+        };
+
+        t.deepEqual([aa, ac], tree.childrenToArray(a, null, filterThis, thisArg));
+
+        t.end();
+});
+
 test('treeToArray', function(t) {
         const tree = new SymbolTree();
         const a = {};
