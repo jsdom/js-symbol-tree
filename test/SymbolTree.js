@@ -724,6 +724,59 @@ test('children iterator return value using a generator', function(t) {
         t.end();
 });
 
+test('ancestorsToArray', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertAfter(b, a);
+
+        t.deepEqual([abaa, aba, ab, a], tree.ancestorsToArray(abaa));
+        t.deepEqual([aba, ab, a], tree.ancestorsToArray(aba));
+        t.deepEqual([b], tree.ancestorsToArray(b));
+
+        const arr = ['a', 5];
+        tree.ancestorsToArray(abaa, arr);
+        t.deepEqual(['a', 5, abaa, aba, ab, a], arr);
+
+        t.end();
+});
+
+test('ancestorsToArray with filter', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertAfter(b, a);
+
+        const thisArg = {foo: 'bar'};
+        const filter = function(object) {
+                t.equal(this, thisArg);
+
+                return object !== abaa && object !== ab;
+        };
+
+        t.deepEqual([aba, a], tree.ancestorsToArray(abaa, null, filter, thisArg));
+
+        t.end();
+});
+
 test('treeToArray', function(t) {
         const tree = new SymbolTree();
         const a = {};
