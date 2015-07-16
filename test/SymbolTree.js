@@ -893,3 +893,28 @@ test('tree iterator', function(t) {
 
         t.end();
 });
+
+test('look up the index of an object', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        t.equal(-1, tree.index(a), 'should return -1 if an object has no parent');
+        t.equal(0, tree.index(aa));
+        t.equal(1, tree.index(ab));
+        t.equal(0, tree.index(aba));
+        t.equal(2, tree.index(ac));
+        t.equal(-1, tree.index(b));
+
+        t.end();
+});
