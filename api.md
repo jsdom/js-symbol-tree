@@ -56,7 +56,7 @@ freeze your object.
 
 <a name="module_symbol-tree--SymbolTree+isEmpty"></a>
 #### symbolTree.isEmpty(object) ⇒ <code>Boolean</code>
-Returns true if the object has any children.
+Returns false if the object has any children. Otherwise it returns true.
 
 `O(1)`
 
