@@ -654,11 +654,45 @@ test('treeToArray', function(t) {
         tree.insertAfter(b, a);
 
         t.deepEqual([a, aa, ab, aba, abaa], tree.treeToArray(a));
-        t.deepEqual([aa, ab, aba, abaa], tree.treeToArray(a, null, false));
 
         const arr = ['a', 5];
         tree.treeToArray(a, arr);
         t.deepEqual(['a', 5, a, aa, ab, aba, abaa], arr);
+
+        t.end();
+});
+
+test('treeToArray with filter', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertAfter(b, a);
+
+        const filter = function(object) {
+                t.equal(this, undefined);
+
+                return object !== a && object !== aba;
+        };
+
+        t.deepEqual([aa, ab, abaa], tree.treeToArray(a, null, filter));
+
+        const thisArg = {foo: 'bar'};
+        const filterThis = function(object) {
+                t.equal(this, thisArg);
+
+                return object !== a && object !== aba;
+        };
+
+        t.deepEqual([aa, ab, abaa], tree.treeToArray(a, null, filterThis, thisArg));
 
         t.end();
 });
