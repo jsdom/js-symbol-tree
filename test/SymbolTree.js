@@ -918,3 +918,45 @@ test('look up the index of an object', function(t) {
 
         t.end();
 });
+
+test('cached index', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        // looking up ac, will also set the cached index for aa and ab, so check that those are valid
+        t.equal(2, tree.index(ac));
+        t.equal(1, tree.index(ab));
+        t.equal(0, tree.index(aa));
+
+        // removing something should invalidate the cache
+        tree.remove(ab);
+        t.equal(1, tree.index(ac));
+        t.equal(-1, tree.index(ab));
+        t.equal(0, tree.index(aa));
+
+        // insertAfter should invalidate
+        tree.insertAfter(ab, aa);
+        t.equal(0, tree.index(aa));
+        t.equal(1, tree.index(ab));
+        t.equal(2, tree.index(ac));
+
+        // insertBefore should invalidate
+        const foo = {};
+        tree.insertBefore(foo, ab);
+        t.equal(0, tree.index(aa));
+        t.equal(2, tree.index(ab));
+        t.equal(3, tree.index(ac));
+
+        t.end();
+});
