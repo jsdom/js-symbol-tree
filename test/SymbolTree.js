@@ -777,6 +777,34 @@ test('ancestorsToArray with filter', function(t) {
         t.end();
 });
 
+test('ancestors iterator', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertAfter(b, a);
+
+        const results = [];
+        const iterator = tree.ancestorsIterator(abaa);
+
+        for (const object of iterator) {
+                results.push(object);
+        }
+        t.deepEqual([abaa, aba, ab, a], results);
+        t.deepEqual({done: true, value: abaa}, iterator.next());
+        t.deepEqual({done: true, value: abaa}, iterator.next()); // should keep returning done: true
+
+        t.end();
+});
+
 test('treeToArray', function(t) {
         const tree = new SymbolTree();
         const a = {};
