@@ -961,6 +961,29 @@ test('cached index', function(t) {
         t.end();
 });
 
+test('cached index warmed up by childrenToArray', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        tree.childrenToArray(a);
+        t.equal(0, tree.index(aa));
+        t.equal(1, tree.index(ab));
+        t.equal(2, tree.index(ac));
+
+        t.end();
+});
+
 test('children count', function(t) {
         // no need to test the caching since we already tested for that in childrenCount
         const tree = new SymbolTree();
