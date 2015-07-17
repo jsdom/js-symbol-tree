@@ -1007,3 +1007,49 @@ test('children count', function(t) {
 
         t.end();
 });
+
+
+test('compare tree position', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const aaa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const ac = {};
+
+        const b = {};
+        const ba = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(aaa, aa);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertLast(ac, a);
+
+        tree.insertAfter(b, a);
+        tree.insertLast(ba, b);
+
+        t.equal(0, tree.compareTreePosition(a, a), 'object equal');
+
+        t.equal(1, tree.compareTreePosition(a, {}), 'object disconnected');
+        t.equal(1, tree.compareTreePosition(a, b), 'object disconnected');
+
+        t.equal(20, tree.compareTreePosition(a, aa), 'contained by & following');
+        t.equal(10, tree.compareTreePosition(aa, a), 'contains & preceding');
+        t.equal(20, tree.compareTreePosition(a, abaa), 'contained by & following');
+        t.equal(10, tree.compareTreePosition(abaa, a), 'contains & preceding');
+
+        t.equal(4, tree.compareTreePosition(aa, ab), 'following');
+        t.equal(2, tree.compareTreePosition(ab, aa), 'preceding');
+        t.equal(4, tree.compareTreePosition(aa, aba), 'following');
+        t.equal(2, tree.compareTreePosition(aba, aa), 'preceding');
+        t.equal(4, tree.compareTreePosition(aa, abaa), 'following');
+        t.equal(2, tree.compareTreePosition(abaa, aa), 'preceding');
+        t.equal(4, tree.compareTreePosition(aaa, abaa), 'following');
+        t.equal(2, tree.compareTreePosition(abaa, aaa), 'preceding');
+
+        t.end();
+});
