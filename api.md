@@ -23,6 +23,7 @@
     * [.treeIterator(root)](#module_symbol-tree--SymbolTree+treeIterator) ⇒ <code>Object</code>
     * [.index(child)](#module_symbol-tree--SymbolTree+index) ⇒ <code>Number</code>
     * [.childrenCount(parent)](#module_symbol-tree--SymbolTree+childrenCount) ⇒ <code>Number</code>
+    * [.compareTreePosition(left, right)](#module_symbol-tree--SymbolTree+compareTreePosition) ⇒ <code>Number</code>
     * [.remove(removeObject)](#module_symbol-tree--SymbolTree+remove) ⇒ <code>Object</code>
     * [.insertBefore(newObject, referenceObject)](#module_symbol-tree--SymbolTree+insertBefore) ⇒ <code>Object</code>
     * [.insertAfter(newObject, referenceObject)](#module_symbol-tree--SymbolTree+insertAfter) ⇒ <code>Object</code>
@@ -277,9 +278,33 @@ Calculate the number of children.
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
-| Param |
-| --- |
-| parent | 
+| Param | Type |
+| --- | --- |
+| parent | <code>Object</code> | 
+
+<a name="module_symbol-tree--SymbolTree+compareTreePosition"></a>
+#### symbolTree.compareTreePosition(left, right) ⇒ <code>Number</code>
+Compare the position of an object relative to another object. A bit set is returned:
+
+<ul>
+    <li>DISCONNECTED : 1</li>
+    <li>PRECEDING : 2</li>
+    <li>FOLLOWING : 4</li>
+    <li>CONTAINS : 8</li>
+    <li>CONTAINED_BY : 16</li>
+</ul>
+
+The semantics are the same as compareDocumentPosition in DOM, with the exception that
+DISCONNECTED never occurs with any other bit.
+
+`O(n)` (worst case)
+
+**Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
+
+| Param | Type |
+| --- | --- |
+| left | <code>Object</code> | 
+| right | <code>Object</code> | 
 
 <a name="module_symbol-tree--SymbolTree+remove"></a>
 #### symbolTree.remove(removeObject) ⇒ <code>Object</code>
