@@ -19,6 +19,8 @@
     * [.ancestorsToArray(object, [array], [filter], [thisArg])](#module_symbol-tree--SymbolTree+ancestorsToArray) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.treeToArray(root, [array], [filter], [thisArg])](#module_symbol-tree--SymbolTree+treeToArray) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.childrenIterator(parent)](#module_symbol-tree--SymbolTree+childrenIterator) ⇒ <code>Object</code>
+    * [.prevSiblingsIterator(object)](#module_symbol-tree--SymbolTree+prevSiblingsIterator) ⇒ <code>Object</code>
+    * [.nextSiblingsIterator(object)](#module_symbol-tree--SymbolTree+nextSiblingsIterator) ⇒ <code>Object</code>
     * [.ancestorsIterator(object)](#module_symbol-tree--SymbolTree+ancestorsIterator) ⇒ <code>Object</code>
     * [.treeIterator(root)](#module_symbol-tree--SymbolTree+treeIterator) ⇒ <code>Object</code>
     * [.index(child)](#module_symbol-tree--SymbolTree+index) ⇒ <code>Number</code>
@@ -217,7 +219,7 @@ Append all descendants of the given object to an array (in tree order).
 
 <a name="module_symbol-tree--SymbolTree+childrenIterator"></a>
 #### symbolTree.childrenIterator(parent) ⇒ <code>Object</code>
-Iterate over all children of the given object to an array.
+Iterate over all children of the given object
 
 `O(1)` for a single iteration
 
@@ -227,6 +229,32 @@ Iterate over all children of the given object to an array.
 | Param | Type |
 | --- | --- |
 | parent | <code>Object</code> | 
+
+<a name="module_symbol-tree--SymbolTree+prevSiblingsIterator"></a>
+#### symbolTree.prevSiblingsIterator(object) ⇒ <code>Object</code>
+Iterate over all the previous siblings of the given object. (in reverse tree order)
+
+`O(1)` for a single iteration
+
+**Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
+**Returns**: <code>Object</code> - An iterable iterator (ES6)  
+
+| Param | Type |
+| --- | --- |
+| object | <code>Object</code> | 
+
+<a name="module_symbol-tree--SymbolTree+nextSiblingsIterator"></a>
+#### symbolTree.nextSiblingsIterator(object) ⇒ <code>Object</code>
+Iterate over all the next siblings of the given object. (in tree order)
+
+`O(1)` for a single iteration
+
+**Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
+**Returns**: <code>Object</code> - An iterable iterator (ES6)  
+
+| Param | Type |
+| --- | --- |
+| object | <code>Object</code> | 
 
 <a name="module_symbol-tree--SymbolTree+ancestorsIterator"></a>
 #### symbolTree.ancestorsIterator(object) ⇒ <code>Object</code>
