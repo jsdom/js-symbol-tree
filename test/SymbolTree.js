@@ -724,6 +724,64 @@ test('children iterator return value using a generator', function(t) {
         t.end();
 });
 
+test('prev sibling iterator', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const ad = {};
+        const ae = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertLast(ad, a);
+        tree.insertLast(ae, a);
+        tree.insertAfter(b, a);
+
+        const results = [];
+
+        for (const object of tree.prevSiblingsIterator(ad)) {
+                results.push(object);
+        }
+        t.deepEqual([ac, ab, aa], results);
+
+        t.end();
+});
+
+test('next sibling iterator', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const ad = {};
+        const ae = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertLast(ad, a);
+        tree.insertLast(ae, a);
+        tree.insertAfter(b, a);
+
+        const results = [];
+
+        for (const object of tree.nextSiblingsIterator(ab)) {
+                results.push(object);
+        }
+        t.deepEqual([ac, ad, ae], results);
+
+        t.end();
+});
+
 test('ancestorsToArray', function(t) {
         const tree = new SymbolTree();
         const a = {};
