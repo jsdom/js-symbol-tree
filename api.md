@@ -18,11 +18,11 @@
     * [.childrenToArray(parent, [array], [filter], [thisArg])](#module_symbol-tree--SymbolTree+childrenToArray) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.ancestorsToArray(object, [array], [filter], [thisArg])](#module_symbol-tree--SymbolTree+ancestorsToArray) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.treeToArray(root, [array], [filter], [thisArg])](#module_symbol-tree--SymbolTree+treeToArray) ⇒ <code>Array.&lt;Object&gt;</code>
-    * [.childrenIterator(parent)](#module_symbol-tree--SymbolTree+childrenIterator) ⇒ <code>Object</code>
+    * [.childrenIterator(parent, [reverse])](#module_symbol-tree--SymbolTree+childrenIterator) ⇒ <code>Object</code>
     * [.prevSiblingsIterator(object)](#module_symbol-tree--SymbolTree+prevSiblingsIterator) ⇒ <code>Object</code>
     * [.nextSiblingsIterator(object)](#module_symbol-tree--SymbolTree+nextSiblingsIterator) ⇒ <code>Object</code>
     * [.ancestorsIterator(object)](#module_symbol-tree--SymbolTree+ancestorsIterator) ⇒ <code>Object</code>
-    * [.treeIterator(root)](#module_symbol-tree--SymbolTree+treeIterator) ⇒ <code>Object</code>
+    * [.treeIterator(root, [reverse])](#module_symbol-tree--SymbolTree+treeIterator) ⇒ <code>Object</code>
     * [.index(child)](#module_symbol-tree--SymbolTree+index) ⇒ <code>Number</code>
     * [.childrenCount(parent)](#module_symbol-tree--SymbolTree+childrenCount) ⇒ <code>Number</code>
     * [.compareTreePosition(left, right)](#module_symbol-tree--SymbolTree+compareTreePosition) ⇒ <code>Number</code>
@@ -218,7 +218,7 @@ Append all descendants of the given object to an array (in tree order).
 | [thisArg] | <code>\*</code> |  | Value to use as `this` when executing `filter`. |
 
 <a name="module_symbol-tree--SymbolTree+childrenIterator"></a>
-#### symbolTree.childrenIterator(parent) ⇒ <code>Object</code>
+#### symbolTree.childrenIterator(parent, [reverse]) ⇒ <code>Object</code>
 Iterate over all children of the given object
 
 `O(1)` for a single iteration
@@ -226,9 +226,10 @@ Iterate over all children of the given object
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
 
-| Param | Type |
-| --- | --- |
-| parent | <code>Object</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| parent | <code>Object</code> |  | 
+| [reverse] | <code>Boolean</code> | <code>false</code> | 
 
 <a name="module_symbol-tree--SymbolTree+prevSiblingsIterator"></a>
 #### symbolTree.prevSiblingsIterator(object) ⇒ <code>Object</code>
@@ -270,7 +271,7 @@ Iterate over all inclusive ancestors of the given object
 | object | <code>Object</code> | 
 
 <a name="module_symbol-tree--SymbolTree+treeIterator"></a>
-#### symbolTree.treeIterator(root) ⇒ <code>Object</code>
+#### symbolTree.treeIterator(root, [reverse]) ⇒ <code>Object</code>
 Iterate over all descendants of the given object (in tree order).
 
 `O(n)` for the entire iteration<br>
@@ -279,9 +280,10 @@ Iterate over all descendants of the given object (in tree order).
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
 
-| Param | Type |
-| --- | --- |
-| root | <code>Object</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| root | <code>Object</code> |  | 
+| [reverse] | <code>Boolean</code> | <code>false</code> | 
 
 <a name="module_symbol-tree--SymbolTree+index"></a>
 #### symbolTree.index(child) ⇒ <code>Number</code>
