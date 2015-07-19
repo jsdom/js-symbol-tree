@@ -978,6 +978,36 @@ test('tree iterator', function(t) {
         t.end();
 });
 
+test('tree iterator reverse', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const abaa = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(abaa, aba);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        const results = [];
+        const iterator = tree.treeIterator(a, true);
+
+        for (const object of iterator) {
+                results.push(object);
+        }
+        t.deepEqual([ac, abaa, aba, ab, aa, a], results);
+        t.deepEqual({done: true, value: a}, iterator.next());
+        t.deepEqual({done: true, value: a}, iterator.next()); // should keep returning done: true
+
+        t.end();
+});
+
 test('look up the index of an object', function(t) {
         const tree = new SymbolTree();
         const a = {};
