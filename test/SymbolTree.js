@@ -698,6 +698,32 @@ test('children iterator', function(t) {
         t.end();
 });
 
+test('children iterator reverse', function(t) {
+        const tree = new SymbolTree();
+        const a = {};
+        const aa = {};
+        const ab = {};
+        const aba = {};
+        const ac = {};
+        const b = {};
+
+        tree.insertLast(aa, a);
+        tree.insertLast(ab, a);
+        tree.insertLast(aba, ab);
+        tree.insertLast(ac, a);
+        tree.insertAfter(b, a);
+
+        const results = [];
+
+        for (const object of tree.childrenIterator(a, true)) {
+                results.push(object);
+        }
+        t.deepEqual([ac, ab, aa], results);
+
+        t.end();
+});
+
+
 test('children iterator return value using a generator', function(t) {
         const tree = new SymbolTree();
         const a = {};
