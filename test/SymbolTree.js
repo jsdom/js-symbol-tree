@@ -591,11 +591,11 @@ test('following using a specified root', function(t) {
         tree.insertLast(aaa, aa);
         tree.insertAfter(b, a);
 
-        t.equal(null, tree.following(aaa, aaa));
-        t.equal(null, tree.following(aaa, aa));
-        t.equal(null, tree.following(aaa, a));
-        t.equal(aa  , tree.following(a, a));
-        t.equal(aaa , tree.following(aa, a));
+        t.equal(null, tree.following(aaa, {root: aaa}));
+        t.equal(null, tree.following(aaa, {root: aa}));
+        t.equal(null, tree.following(aaa, {root: a}));
+        t.equal(aa  , tree.following(a  , {root: a}));
+        t.equal(aaa , tree.following(aa , {root: a}));
 
         t.end();
 });
@@ -609,7 +609,7 @@ test('following with skipChildren', function(t) {
         tree.insertLast(aa, a);
         tree.insertAfter(b, a);
 
-        t.equal(b, tree.following(a, null, true));
+        t.equal(b, tree.following(a, {skipChildren: true}));
 
         t.end();
 });
