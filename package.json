@@ -1,6 +1,6 @@
 {
   "name": "symbol-tree",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "Turn any collection of objects into its own efficient tree or linked list using Symbol",
   "main": "lib/SymbolTree.js",
   "scripts": {
