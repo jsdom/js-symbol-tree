@@ -632,7 +632,7 @@ test('childrenToArray', function(t) {
         t.deepEqual([aa, ab, ac], tree.childrenToArray(a));
 
         const arr = ['a', 5];
-        tree.childrenToArray(a, arr);
+        tree.childrenToArray(a, {array: arr});
         t.deepEqual(['a', 5, aa, ab, ac], arr);
 
         t.end();
@@ -659,7 +659,7 @@ test('childrenToArray with filter', function(t) {
                 return object !== ab;
         };
 
-        t.deepEqual([aa, ac], tree.childrenToArray(a, null, filter));
+        t.deepEqual([aa, ac], tree.childrenToArray(a, {filter: filter}));
 
         const thisArg = {a: 123};
         const filterThis = function(object) {
@@ -668,7 +668,7 @@ test('childrenToArray with filter', function(t) {
                 return object !== ab;
         };
 
-        t.deepEqual([aa, ac], tree.childrenToArray(a, null, filterThis, thisArg));
+        t.deepEqual([aa, ac], tree.childrenToArray(a, {filter: filterThis, thisArg: thisArg}));
 
         t.end();
 });
