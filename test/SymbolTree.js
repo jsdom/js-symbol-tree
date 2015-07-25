@@ -19,8 +19,8 @@ test('unassociated object', function(t) {
         const a = {};
 
         t.equal(false, tree.hasChildren(a));
-        t.equal(null , tree.first      (a));
-        t.equal(null , tree.last       (a));
+        t.equal(null , tree.firstChild (a));
+        t.equal(null , tree.lastChild  (a));
         t.equal(null , tree.prev       (a));
         t.equal(null , tree.next       (a));
         t.equal(null , tree.parent     (a));
@@ -36,12 +36,12 @@ test('insertBefore without parent or siblings', function(t) {
         t.equal(a, tree.insertBefore(a, b));
 
         t.equal(false, tree.hasChildren(a));
-        t.equal(null , tree.first      (a));
-        t.equal(null , tree.last       (a));
+        t.equal(null , tree.firstChild (a));
+        t.equal(null , tree.lastChild  (a));
         t.equal(null , tree.parent     (a));
         t.equal(false, tree.hasChildren(b));
-        t.equal(null , tree.first      (b));
-        t.equal(null , tree.last       (b));
+        t.equal(null , tree.firstChild (b));
+        t.equal(null , tree.lastChild  (b));
         t.equal(null , tree.parent     (b));
 
         t.equal(null , tree.prev(a));
@@ -59,14 +59,14 @@ test('insertAfter without parent or siblings', function(t) {
 
         t.equal(b, tree.insertAfter(b, a));
 
-        t.equal(false, tree.hasChildren(a));
-        t.equal(null , tree.first  (a));
-        t.equal(null , tree.last   (a));
-        t.equal(null , tree.parent (a));
-        t.equal(false, tree.hasChildren(b));
-        t.equal(null , tree.first  (b));
-        t.equal(null , tree.last   (b));
-        t.equal(null , tree.parent (b));
+        t.equal(false, tree.hasChildren (a));
+        t.equal(null , tree.firstChild  (a));
+        t.equal(null , tree.lastChild   (a));
+        t.equal(null , tree.parent      (a));
+        t.equal(false, tree.hasChildren (b));
+        t.equal(null , tree.firstChild  (b));
+        t.equal(null , tree.lastChild   (b));
+        t.equal(null , tree.parent      (b));
 
         t.equal(null , tree.prev(a));
         t.equal(b    , tree.next(a));
@@ -84,15 +84,15 @@ test('insertFirst without children', function(t) {
         t.equal(a, tree.insertFirst(a, parent));
 
         t.equal(false , tree.hasChildren(a));
-        t.equal(null  , tree.first      (a));
-        t.equal(null  , tree.last       (a));
+        t.equal(null  , tree.firstChild (a));
+        t.equal(null  , tree.lastChild  (a));
         t.equal(null  , tree.prev       (a));
         t.equal(null  , tree.next       (a));
         t.equal(parent, tree.parent     (a));
 
         t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.first      (parent));
-        t.equal(a    , tree.last       (parent));
+        t.equal(a    , tree.firstChild (parent));
+        t.equal(a    , tree.lastChild  (parent));
         t.equal(null , tree.prev       (a));
         t.equal(null , tree.next       (parent));
         t.equal(null , tree.parent     (parent));
@@ -108,15 +108,15 @@ test('insertLast without children', function(t) {
         t.equal(a, tree.insertLast(a, parent));
 
         t.equal(false , tree.hasChildren(a));
-        t.equal(null  , tree.first      (a));
-        t.equal(null  , tree.last       (a));
+        t.equal(null  , tree.firstChild (a));
+        t.equal(null  , tree.lastChild  (a));
         t.equal(null  , tree.prev       (a));
         t.equal(null  , tree.next       (a));
         t.equal(parent, tree.parent     (a));
 
         t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.first      (parent));
-        t.equal(a    , tree.last       (parent));
+        t.equal(a    , tree.firstChild (parent));
+        t.equal(a    , tree.lastChild  (parent));
         t.equal(null , tree.prev       (a));
         t.equal(null , tree.next       (parent));
         t.equal(null , tree.parent     (parent));
@@ -134,8 +134,8 @@ test('insertFirst with children', function(t) {
         tree.insertFirst(a, parent);
 
         t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.first      (parent));
-        t.equal(b    , tree.last       (parent));
+        t.equal(a    , tree.firstChild (parent));
+        t.equal(b    , tree.lastChild  (parent));
 
         t.equal(parent, tree.parent (a));
         t.equal(null  , tree.prev   (a));
@@ -157,8 +157,8 @@ test('insertLast with children', function(t) {
         tree.insertLast(b, parent);
 
         t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.first      (parent));
-        t.equal(b    , tree.last       (parent));
+        t.equal(a    , tree.firstChild (parent));
+        t.equal(b    , tree.lastChild  (parent));
 
         t.equal(parent, tree.parent (a));
         t.equal(null  , tree.prev   (a));
@@ -180,8 +180,8 @@ test('insertBefore with parent', function(t) {
         tree.insertBefore(a, b);
 
         t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.first      (parent));
-        t.equal(b    , tree.last       (parent));
+        t.equal(a    , tree.firstChild (parent));
+        t.equal(b    , tree.lastChild  (parent));
 
         t.equal(parent, tree.parent (a));
         t.equal(null  , tree.prev   (a));
@@ -203,8 +203,8 @@ test('insertAfter with parent', function(t) {
         tree.insertAfter(b, a);
 
         t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.first      (parent));
-        t.equal(b    , tree.last       (parent));
+        t.equal(a    , tree.firstChild (parent));
+        t.equal(b    , tree.lastChild  (parent));
 
         t.equal(parent, tree.parent (a));
         t.equal(null  , tree.prev   (a));
@@ -330,8 +330,8 @@ test('remove with parent', function(t) {
         tree.remove(a);
 
         t.equal(null, tree.parent(a));
-        t.equal(null, tree.first(parent));
-        t.equal(null, tree.last (parent));
+        t.equal(null, tree.firstChild(parent));
+        t.equal(null, tree.lastChild (parent));
 
         t.end();
 });
@@ -345,8 +345,8 @@ test('remove with children', function(t) {
         tree.remove(parent);
 
         t.equal(parent, tree.parent(a));
-        t.equal(a, tree.first(parent));
-        t.equal(a, tree.last (parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(a, tree.lastChild (parent));
 
         t.end();
 });
@@ -363,8 +363,8 @@ test('remove with parent and siblings', function(t) {
         tree.insertAfter(c, b);
         tree.remove(b);
 
-        t.equal(a, tree.first(parent));
-        t.equal(c, tree.last (parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(c, tree.lastChild (parent));
 
         t.equal(null  , tree.prev   (a));
         t.equal(c     , tree.next   (a));
