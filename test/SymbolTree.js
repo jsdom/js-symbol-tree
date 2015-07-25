@@ -33,7 +33,7 @@ test('insertBefore without parent or siblings', function(t) {
         const a = {};
         const b = {};
 
-        t.equal(a, tree.insertBefore(a, b));
+        t.equal(a, tree.insertBefore(b, a));
 
         t.equal(false, tree.hasChildren(a));
         t.equal(null , tree.firstChild (a));
@@ -57,7 +57,7 @@ test('insertAfter without parent or siblings', function(t) {
         const a = {};
         const b = {};
 
-        t.equal(b, tree.insertAfter(b, a));
+        t.equal(b, tree.insertAfter(a, b));
 
         t.equal(false, tree.hasChildren (a));
         t.equal(null , tree.firstChild  (a));
@@ -81,7 +81,7 @@ test('prependChild without children', function(t) {
         const parent = {};
         const a = {};
 
-        t.equal(a, tree.prependChild(a, parent));
+        t.equal(a, tree.prependChild(parent, a));
 
         t.equal(false , tree.hasChildren    (a));
         t.equal(null  , tree.firstChild     (a));
@@ -105,7 +105,7 @@ test('appendChild without children', function(t) {
         const parent = {};
         const a = {};
 
-        t.equal(a, tree.appendChild(a, parent));
+        t.equal(a, tree.appendChild(parent, a));
 
         t.equal(false , tree.hasChildren    (a));
         t.equal(null  , tree.firstChild     (a));
@@ -130,8 +130,8 @@ test('prependChild with children', function(t) {
         const a = {};
         const b = {};
 
-        tree.prependChild(b, parent);
-        tree.prependChild(a, parent);
+        tree.prependChild(parent, b);
+        tree.prependChild(parent, a);
 
         t.equal(true , tree.hasChildren(parent));
         t.equal(a    , tree.firstChild (parent));
@@ -153,8 +153,8 @@ test('appendChild with children', function(t) {
         const a = {};
         const b = {};
 
-        tree.appendChild(a, parent);
-        tree.appendChild(b, parent);
+        tree.appendChild(parent, a);
+        tree.appendChild(parent, b);
 
         t.equal(true , tree.hasChildren(parent));
         t.equal(a    , tree.firstChild (parent));
@@ -176,8 +176,8 @@ test('insertBefore with parent', function(t) {
         const a = {};
         const b = {};
 
-        tree.prependChild(b, parent);
-        tree.insertBefore(a, b);
+        tree.prependChild(parent, b);
+        tree.insertBefore(b, a);
 
         t.equal(true , tree.hasChildren(parent));
         t.equal(a    , tree.firstChild (parent));
@@ -199,8 +199,8 @@ test('insertAfter with parent', function(t) {
         const a = {};
         const b = {};
 
-        tree.appendChild(a, parent);
-        tree.insertAfter(b, a);
+        tree.appendChild(parent, a);
+        tree.insertAfter(a, b);
 
         t.equal(true , tree.hasChildren(parent));
         t.equal(a    , tree.firstChild (parent));
@@ -222,8 +222,8 @@ test('insertBefore with siblings', function(t) {
         const b = {};
         const c = {};
 
-        tree.insertBefore(a, c);
-        tree.insertBefore(b, c);
+        tree.insertBefore(c, a);
+        tree.insertBefore(c, b);
 
         t.equal(null, tree.previousSibling(a));
         t.equal(b   , tree.nextSibling(a));
@@ -243,8 +243,8 @@ test('insertAfter with siblings', function(t) {
         const b = {};
         const c = {};
 
-        tree.insertAfter(c, a);
-        tree.insertAfter(b, a);
+        tree.insertAfter(a, c);
+        tree.insertAfter(a, b);
 
         t.equal(null, tree.previousSibling(a));
         t.equal(b   , tree.nextSibling(a));
@@ -263,7 +263,7 @@ test('remove with previous sibling', function(t) {
         const a = {};
         const b = {};
 
-        tree.insertAfter(b, a);
+        tree.insertAfter(a, b);
         tree.remove(b);
 
         t.equal(null, tree.previousSibling(a));
@@ -282,7 +282,7 @@ test('remove with next sibling', function(t) {
         const a = {};
         const b = {};
 
-        tree.insertAfter(b, a);
+        tree.insertAfter(a, b);
         tree.remove(a);
 
         t.equal(null, tree.previousSibling(a));
@@ -302,8 +302,8 @@ test('remove with siblings', function(t) {
         const b = {};
         const c = {};
 
-        tree.insertAfter(b, a);
-        tree.insertAfter(c, b);
+        tree.insertAfter(a, b);
+        tree.insertAfter(b, c);
         tree.remove(b);
 
         t.equal(null, tree.previousSibling   (a));
@@ -326,7 +326,7 @@ test('remove with parent', function(t) {
         const parent = {};
         const a = {};
 
-        tree.prependChild(a, parent);
+        tree.prependChild(parent, a);
         tree.remove(a);
 
         t.equal(null, tree.parent(a));
@@ -341,7 +341,7 @@ test('remove with children', function(t) {
         const parent = {};
         const a = {};
 
-        tree.prependChild(a, parent);
+        tree.prependChild(parent, a);
         tree.remove(parent);
 
         t.equal(parent, tree.parent(a));
@@ -358,9 +358,9 @@ test('remove with parent and siblings', function(t) {
         const b = {};
         const c = {};
 
-        tree.prependChild(a, parent);
-        tree.insertAfter(b, a);
-        tree.insertAfter(c, b);
+        tree.prependChild(parent, a);
+        tree.insertAfter(a, b);
+        tree.insertAfter(b, c);
         tree.remove(b);
 
         t.equal(a, tree.firstChild(parent));
@@ -386,30 +386,30 @@ test('inserting an already associated object should fail', function(t) {
         const a = {};
         const b = {};
 
-        tree.insertBefore(a, b);
+        tree.insertBefore(b, a);
 
         // jscs:disable requireBlocksOnNewline
 
         // `nextSibling` check
-        t.throws(function() { tree.insertBefore(a, b); }, /already present/);
-        t.throws(function() { tree.insertAfter (a, b); }, /already present/);
-        t.throws(function() { tree.prependChild (a, b); }, /already present/);
-        t.throws(function() { tree.appendChild  (a, b); }, /already present/);
-
-        // `previousSibling` check
         t.throws(function() { tree.insertBefore(b, a); }, /already present/);
         t.throws(function() { tree.insertAfter (b, a); }, /already present/);
         t.throws(function() { tree.prependChild (b, a); }, /already present/);
         t.throws(function() { tree.appendChild  (b, a); }, /already present/);
 
-        tree.remove(a);
-
-        tree.prependChild(a, b);
-        // `parent` check
+        // `previousSibling` check
         t.throws(function() { tree.insertBefore(a, b); }, /already present/);
         t.throws(function() { tree.insertAfter (a, b); }, /already present/);
         t.throws(function() { tree.prependChild (a, b); }, /already present/);
         t.throws(function() { tree.appendChild  (a, b); }, /already present/);
+
+        tree.remove(a);
+
+        tree.prependChild(b, a);
+        // `parent` check
+        t.throws(function() { tree.insertBefore(b, a); }, /already present/);
+        t.throws(function() { tree.insertAfter (b, a); }, /already present/);
+        t.throws(function() { tree.prependChild (b, a); }, /already present/);
+        t.throws(function() { tree.appendChild  (b, a); }, /already present/);
 
         // jscs:enable requireBlocksOnNewline
 
@@ -422,8 +422,8 @@ test('Multiple SymbolTree instances should not conflict', function(t) {
         const a = {};
         const b = {};
 
-        tree1.insertBefore(a, b);
-        tree2.insertBefore(b, a);
+        tree1.insertBefore(b, a);
+        tree2.insertBefore(a, b);
 
         t.equal(null, tree1.previousSibling(a));
         t.equal(b   , tree1.nextSibling(a));
@@ -447,11 +447,11 @@ test('lastInclusiveDescendant', function(t) {
         const abaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.insertAfter(a, b);
 
         t.equal(abaa, tree.lastInclusiveDescendant(a));
 
@@ -463,7 +463,7 @@ test('look up preceding with a previous sibling', function(t) {
         const a = {};
         const b = {};
 
-        tree.insertAfter(b, a);
+        tree.insertAfter(a, b);
 
         t.equal(null, tree.preceding(a));
         t.equal(a, tree.preceding(b));
@@ -478,9 +478,9 @@ test('look up preceding with a previous sibling with a child', function(t) {
         const ab = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.insertAfter(a, b);
 
         t.equal(null, tree.preceding(a));
         t.equal(a   , tree.preceding(aa));
@@ -499,11 +499,11 @@ test('look up preceding with a previous sibling with a descendants', function(t)
         const abaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.insertAfter(a, b);
 
         t.equal(abaa, tree.preceding(b));
 
@@ -515,7 +515,7 @@ test('look up preceding using a specified root', function(t) {
         const a = {};
         const aa = {};
 
-        tree.appendChild(aa, a);
+        tree.appendChild(a, aa);
 
         t.equal(null, tree.preceding(a , {root: a}));
         t.equal(a   , tree.preceding(aa, {root: a}));
@@ -529,7 +529,7 @@ test('following with a child', function(t) {
         const a = {};
         const aa = {};
 
-        tree.appendChild(aa, a);
+        tree.appendChild(a, aa);
 
         t.equal(aa  , tree.following(a));
         t.equal(null, tree.following(aa));
@@ -542,7 +542,7 @@ test('following with a nextSibling sibling', function(t) {
         const a = {};
         const b = {};
 
-        tree.insertAfter(b, a);
+        tree.insertAfter(a, b);
 
         t.equal(b   , tree.following(a));
         t.equal(null, tree.following(b));
@@ -556,8 +556,8 @@ test('following with sibling of parent', function(t) {
         const aa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.insertAfter(a, b);
 
         t.equal(b, tree.following(aa));
 
@@ -571,9 +571,9 @@ test('following with sibling of grandparent', function(t) {
         const aaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(aaa, aa);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(aa, aaa);
+        tree.insertAfter(a, b);
 
         t.equal(b, tree.following(aaa));
 
@@ -587,9 +587,9 @@ test('following using a specified root', function(t) {
         const aaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(aaa, aa);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(aa, aaa);
+        tree.insertAfter(a, b);
 
         t.equal(null, tree.following(aaa, {root: aaa}));
         t.equal(null, tree.following(aaa, {root: aa}));
@@ -606,8 +606,8 @@ test('following with skipChildren', function(t) {
         const aa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.insertAfter(a, b);
 
         t.equal(b, tree.following(a, {skipChildren: true}));
 
@@ -623,11 +623,11 @@ test('childrenToArray', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         t.deepEqual([aa, ab, ac], tree.childrenToArray(a));
 
@@ -647,11 +647,11 @@ test('childrenToArray with filter', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         const filter = function(object) {
                 t.equal(this, undefined);
@@ -682,11 +682,11 @@ test('children iterator', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         const results = [];
 
@@ -707,11 +707,11 @@ test('children iterator reverse', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         const results = [];
 
@@ -731,9 +731,9 @@ test('children iterator return value using a generator', function(t) {
         const ab = {};
         const ac = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(ac, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(a, ac);
 
         function* generator(it) {
                 const returnValue = yield* it;
@@ -761,13 +761,13 @@ test('previous sibling iterator', function(t) {
         const ae = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.appendChild(ad, a);
-        tree.appendChild(ae, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.appendChild(a, ad);
+        tree.appendChild(a, ae);
+        tree.insertAfter(a, b);
 
         const results = [];
 
@@ -790,13 +790,13 @@ test('nextSibling sibling iterator', function(t) {
         const ae = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.appendChild(ad, a);
-        tree.appendChild(ae, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.appendChild(a, ad);
+        tree.appendChild(a, ae);
+        tree.insertAfter(a, b);
 
         const results = [];
 
@@ -817,11 +817,11 @@ test('ancestorsToArray', function(t) {
         const abaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.insertAfter(a, b);
 
         t.deepEqual([abaa, aba, ab, a], tree.ancestorsToArray(abaa));
         t.deepEqual([aba, ab, a], tree.ancestorsToArray(aba));
@@ -843,11 +843,11 @@ test('ancestorsToArray with filter', function(t) {
         const abaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.insertAfter(a, b);
 
         const thisArg = {foo: 'bar'};
         const filter = function(object) {
@@ -870,11 +870,11 @@ test('ancestors iterator', function(t) {
         const abaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.insertAfter(a, b);
 
         const results = [];
         const iterator = tree.ancestorsIterator(abaa);
@@ -898,11 +898,11 @@ test('treeToArray', function(t) {
         const abaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.insertAfter(a, b);
 
         t.deepEqual([a, aa, ab, aba, abaa], tree.treeToArray(a));
 
@@ -922,11 +922,11 @@ test('treeToArray with filter', function(t) {
         const abaa = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.insertAfter(a, b);
 
         const filter = function(object) {
                 t.equal(this, undefined);
@@ -958,12 +958,12 @@ test('tree iterator', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         const results = [];
         const iterator = tree.treeIterator(a);
@@ -988,12 +988,12 @@ test('tree iterator reverse', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         const results = [];
         const iterator = tree.treeIterator(a, {reverse: true});
@@ -1017,11 +1017,11 @@ test('look up the index of an object', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         t.equal(-1, tree.index(a), 'should return -1 if an object has no parent');
         t.equal(0, tree.index(aa));
@@ -1042,11 +1042,11 @@ test('cached index', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         // looking up ac, will also set the cached index for aa and ab, so check that those are valid
         t.equal(2, tree.index(ac));
@@ -1060,14 +1060,14 @@ test('cached index', function(t) {
         t.equal(0, tree.index(aa));
 
         // insertAfter should invalidate
-        tree.insertAfter(ab, aa);
+        tree.insertAfter(aa, ab);
         t.equal(0, tree.index(aa));
         t.equal(1, tree.index(ab));
         t.equal(2, tree.index(ac));
 
         // insertBefore should invalidate
         const foo = {};
-        tree.insertBefore(foo, ab);
+        tree.insertBefore(ab, foo);
         t.equal(0, tree.index(aa));
         t.equal(2, tree.index(ab));
         t.equal(3, tree.index(ac));
@@ -1084,11 +1084,11 @@ test('cached index warmed up by childrenToArray', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         tree.childrenToArray(a);
         t.equal(0, tree.index(aa));
@@ -1108,11 +1108,11 @@ test('children count', function(t) {
         const ac = {};
         const b = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(ac, a);
-        tree.insertAfter(b, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(a, ac);
+        tree.insertAfter(a, b);
 
         t.equal(3, tree.childrenCount(a), 'foo');
         t.equal(0, tree.childrenCount(aa));
@@ -1136,15 +1136,15 @@ test('compare tree position', function(t) {
         const b = {};
         const ba = {};
 
-        tree.appendChild(aa, a);
-        tree.appendChild(aaa, aa);
-        tree.appendChild(ab, a);
-        tree.appendChild(aba, ab);
-        tree.appendChild(abaa, aba);
-        tree.appendChild(ac, a);
+        tree.appendChild(a, aa);
+        tree.appendChild(aa, aaa);
+        tree.appendChild(a, ab);
+        tree.appendChild(ab, aba);
+        tree.appendChild(aba, abaa);
+        tree.appendChild(a, ac);
 
-        tree.insertAfter(b, a);
-        tree.appendChild(ba, b);
+        tree.insertAfter(a, b);
+        tree.appendChild(b, ba);
 
         t.equal(0, tree.compareTreePosition(a, a), 'object equal');
 
