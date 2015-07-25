@@ -771,7 +771,7 @@ test('previous sibling iterator', function(t) {
 
         const results = [];
 
-        for (const object of tree.prevSiblingsIterator(ad)) {
+        for (const object of tree.previousSiblingsIterator(ad)) {
                 results.push(object);
         }
         t.deepEqual([ac, ab, aa], results);
