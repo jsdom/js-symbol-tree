@@ -828,7 +828,7 @@ test('ancestorsToArray', function(t) {
         t.deepEqual([b], tree.ancestorsToArray(b));
 
         const arr = ['a', 5];
-        tree.ancestorsToArray(abaa, arr);
+        tree.ancestorsToArray(abaa, {array: arr});
         t.deepEqual(['a', 5, abaa, aba, ab, a], arr);
 
         t.end();
@@ -856,7 +856,7 @@ test('ancestorsToArray with filter', function(t) {
                 return object !== abaa && object !== ab;
         };
 
-        t.deepEqual([aba, a], tree.ancestorsToArray(abaa, null, filter, thisArg));
+        t.deepEqual([aba, a], tree.ancestorsToArray(abaa, {filter: filter, thisArg: thisArg}));
 
         t.end();
 });
