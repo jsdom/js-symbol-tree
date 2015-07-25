@@ -907,7 +907,7 @@ test('treeToArray', function(t) {
         t.deepEqual([a, aa, ab, aba, abaa], tree.treeToArray(a));
 
         const arr = ['a', 5];
-        tree.treeToArray(a, arr);
+        tree.treeToArray(a, {array: arr});
         t.deepEqual(['a', 5, a, aa, ab, aba, abaa], arr);
 
         t.end();
@@ -934,7 +934,7 @@ test('treeToArray with filter', function(t) {
                 return object !== a && object !== aba;
         };
 
-        t.deepEqual([aa, ab, abaa], tree.treeToArray(a, null, filter));
+        t.deepEqual([aa, ab, abaa], tree.treeToArray(a, {filter: filter}));
 
         const thisArg = {foo: 'bar'};
         const filterThis = function(object) {
@@ -943,7 +943,7 @@ test('treeToArray with filter', function(t) {
                 return object !== a && object !== aba;
         };
 
-        t.deepEqual([aa, ab, abaa], tree.treeToArray(a, null, filterThis, thisArg));
+        t.deepEqual([aa, ab, abaa], tree.treeToArray(a, {filter: filterThis, thisArg: thisArg}));
 
         t.end();
 });
