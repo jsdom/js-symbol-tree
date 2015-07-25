@@ -517,9 +517,9 @@ test('look up preceding using a specified root', function(t) {
 
         tree.insertLast(aa, a);
 
-        t.equal(null, tree.preceding(a, a));
-        t.equal(a   , tree.preceding(aa, a));
-        t.equal(null, tree.preceding(aa, aa));
+        t.equal(null, tree.preceding(a , {root: a}));
+        t.equal(a   , tree.preceding(aa, {root: a}));
+        t.equal(null, tree.preceding(aa, {root: aa}));
 
         t.end();
 });
