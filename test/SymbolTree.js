@@ -715,7 +715,7 @@ test('children iterator reverse', function(t) {
 
         const results = [];
 
-        for (const object of tree.childrenIterator(a, true)) {
+        for (const object of tree.childrenIterator(a, {reverse: true})) {
                 results.push(object);
         }
         t.deepEqual([ac, ab, aa], results);
