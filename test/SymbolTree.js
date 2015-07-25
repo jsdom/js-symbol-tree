@@ -996,7 +996,7 @@ test('tree iterator reverse', function(t) {
         tree.insertAfter(b, a);
 
         const results = [];
-        const iterator = tree.treeIterator(a, true);
+        const iterator = tree.treeIterator(a, {reverse: true});
 
         for (const object of iterator) {
                 results.push(object);
