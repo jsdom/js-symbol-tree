@@ -19,7 +19,7 @@
     * [.ancestorsToArray(object, [options])](#module_symbol-tree--SymbolTree+ancestorsToArray) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.treeToArray(root, [options])](#module_symbol-tree--SymbolTree+treeToArray) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.childrenIterator(parent, [options])](#module_symbol-tree--SymbolTree+childrenIterator) ⇒ <code>Object</code>
-    * [.prevSiblingsIterator(object)](#module_symbol-tree--SymbolTree+prevSiblingsIterator) ⇒ <code>Object</code>
+    * [.previousSiblingsIterator(object)](#module_symbol-tree--SymbolTree+previousSiblingsIterator) ⇒ <code>Object</code>
     * [.nextSiblingsIterator(object)](#module_symbol-tree--SymbolTree+nextSiblingsIterator) ⇒ <code>Object</code>
     * [.ancestorsIterator(object)](#module_symbol-tree--SymbolTree+ancestorsIterator) ⇒ <code>Object</code>
     * [.treeIterator(root, options)](#module_symbol-tree--SymbolTree+treeIterator) ⇒ <code>Object</code>
@@ -237,8 +237,8 @@ Iterate over all children of the given object
 | [options] | <code>Object</code> |  | 
 | [options.reverse] | <code>Boolean</code> | <code>false</code> | 
 
-<a name="module_symbol-tree--SymbolTree+prevSiblingsIterator"></a>
-#### symbolTree.prevSiblingsIterator(object) ⇒ <code>Object</code>
+<a name="module_symbol-tree--SymbolTree+previousSiblingsIterator"></a>
+#### symbolTree.previousSiblingsIterator(object) ⇒ <code>Object</code>
 Iterate over all the previous siblings of the given object. (in reverse tree order)
 
 `O(1)` for a single iteration
