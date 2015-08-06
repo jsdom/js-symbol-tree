@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Joris-van-der-Wel/js-symbol-tree.git"
+    "url": "https://github.com/jsdom/js-symbol-tree.git"
   },
   "keywords": [
     "list",
@@ -25,9 +25,9 @@
   "author": "Joris van der Wel <joris@jorisvanderwel.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Joris-van-der-Wel/js-symbol-tree/issues"
+    "url": "https://github.com/jsdom/js-symbol-tree/issues"
   },
-  "homepage": "https://github.com/Joris-van-der-Wel/js-symbol-tree#readme",
+  "homepage": "https://github.com/jsdom/js-symbol-tree#symbol-tree",
   "devDependencies": {
     "istanbul": "^0.3.17",
     "jscs": "^1.13.1",
