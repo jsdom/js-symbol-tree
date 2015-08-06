@@ -1095,6 +1095,11 @@ test('cached index warmed up by childrenToArray', function(t) {
         t.equal(1, tree.index(ab));
         t.equal(2, tree.index(ac));
 
+        tree.appendChild(a, {});
+        t.equal(2, tree.index(ac));
+        tree.childrenToArray(a);
+        t.equal(2, tree.index(ac));
+
         t.end();
 });
 
