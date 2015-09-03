@@ -3,6 +3,21 @@
 const SymbolTree = require('..');
 const test = require('tape');
 
+function o() {
+        // return an object that is unique in a deepEqual check
+
+        return {
+                unique : Symbol()
+        };
+}
+
+test('test case internal prerequisite', function(t) {
+        const a = o();
+        t.notDeepEqual([o()], [o()]);
+        t.deepEqual([a], [a]);
+        t.end();
+});
+
 test('initialize', function(t) {
         const tree = new SymbolTree();
         const obj = {foo: 'bar'};
@@ -16,7 +31,7 @@ test('initialize', function(t) {
 
 test('unassociated object', function(t) {
         const tree = new SymbolTree();
-        const a = {};
+        const a = o();
 
         t.equal(false, tree.hasChildren    (a));
         t.equal(null , tree.firstChild     (a));
@@ -30,8 +45,8 @@ test('unassociated object', function(t) {
 
 test('insertBefore without parent or siblings', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         t.equal(a, tree.insertBefore(b, a));
 
@@ -54,8 +69,8 @@ test('insertBefore without parent or siblings', function(t) {
 
 test('insertAfter without parent or siblings', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         t.equal(b, tree.insertAfter(a, b));
 
@@ -78,8 +93,8 @@ test('insertAfter without parent or siblings', function(t) {
 
 test('prependChild without children', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
+        const parent = o();
+        const a = o();
 
         t.equal(a, tree.prependChild(parent, a));
 
@@ -102,8 +117,8 @@ test('prependChild without children', function(t) {
 
 test('appendChild without children', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
+        const parent = o();
+        const a = o();
 
         t.equal(a, tree.appendChild(parent, a));
 
@@ -126,9 +141,9 @@ test('appendChild without children', function(t) {
 
 test('prependChild with children', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
-        const b = {};
+        const parent = o();
+        const a = o();
+        const b = o();
 
         tree.prependChild(parent, b);
         tree.prependChild(parent, a);
@@ -149,9 +164,9 @@ test('prependChild with children', function(t) {
 
 test('appendChild with children', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
-        const b = {};
+        const parent = o();
+        const a = o();
+        const b = o();
 
         tree.appendChild(parent, a);
         tree.appendChild(parent, b);
@@ -172,9 +187,9 @@ test('appendChild with children', function(t) {
 
 test('insertBefore with parent', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
-        const b = {};
+        const parent = o();
+        const a = o();
+        const b = o();
 
         tree.prependChild(parent, b);
         tree.insertBefore(b, a);
@@ -195,9 +210,9 @@ test('insertBefore with parent', function(t) {
 
 test('insertAfter with parent', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
-        const b = {};
+        const parent = o();
+        const a = o();
+        const b = o();
 
         tree.appendChild(parent, a);
         tree.insertAfter(a, b);
@@ -218,9 +233,9 @@ test('insertAfter with parent', function(t) {
 
 test('insertBefore with siblings', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
-        const c = {};
+        const a = o();
+        const b = o();
+        const c = o();
 
         tree.insertBefore(c, a);
         tree.insertBefore(c, b);
@@ -239,9 +254,9 @@ test('insertBefore with siblings', function(t) {
 
 test('insertAfter with siblings', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
-        const c = {};
+        const a = o();
+        const b = o();
+        const c = o();
 
         tree.insertAfter(a, c);
         tree.insertAfter(a, b);
@@ -260,8 +275,8 @@ test('insertAfter with siblings', function(t) {
 
 test('remove with previous sibling', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         tree.insertAfter(a, b);
         tree.remove(b);
@@ -279,8 +294,8 @@ test('remove with previous sibling', function(t) {
 
 test('remove with next sibling', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         tree.insertAfter(a, b);
         tree.remove(a);
@@ -298,9 +313,9 @@ test('remove with next sibling', function(t) {
 
 test('remove with siblings', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
-        const c = {};
+        const a = o();
+        const b = o();
+        const c = o();
 
         tree.insertAfter(a, b);
         tree.insertAfter(b, c);
@@ -323,8 +338,8 @@ test('remove with siblings', function(t) {
 
 test('remove with parent', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
+        const parent = o();
+        const a = o();
 
         tree.prependChild(parent, a);
         tree.remove(a);
@@ -338,8 +353,8 @@ test('remove with parent', function(t) {
 
 test('remove with children', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
+        const parent = o();
+        const a = o();
 
         tree.prependChild(parent, a);
         tree.remove(parent);
@@ -353,10 +368,10 @@ test('remove with children', function(t) {
 
 test('remove with parent and siblings', function(t) {
         const tree = new SymbolTree();
-        const parent = {};
-        const a = {};
-        const b = {};
-        const c = {};
+        const parent = o();
+        const a = o();
+        const b = o();
+        const c = o();
 
         tree.prependChild(parent, a);
         tree.insertAfter(a, b);
@@ -383,8 +398,8 @@ test('remove with parent and siblings', function(t) {
 
 test('inserting an already associated object should fail', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         tree.insertBefore(b, a);
 
@@ -419,8 +434,8 @@ test('inserting an already associated object should fail', function(t) {
 test('Multiple SymbolTree instances should not conflict', function(t) {
         const tree1 = new SymbolTree();
         const tree2 = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         tree1.insertBefore(b, a);
         tree2.insertBefore(a, b);
@@ -440,12 +455,12 @@ test('Multiple SymbolTree instances should not conflict', function(t) {
 
 test('lastInclusiveDescendant', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -460,8 +475,8 @@ test('lastInclusiveDescendant', function(t) {
 
 test('look up preceding with a previous sibling', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         tree.insertAfter(a, b);
 
@@ -473,10 +488,10 @@ test('look up preceding with a previous sibling', function(t) {
 
 test('look up preceding with a previous sibling with a child', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -492,12 +507,12 @@ test('look up preceding with a previous sibling with a child', function(t) {
 
 test('look up preceding with a previous sibling with a descendants', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -512,8 +527,8 @@ test('look up preceding with a previous sibling with a descendants', function(t)
 
 test('look up preceding using a specified root', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
+        const a = o();
+        const aa = o();
 
         tree.appendChild(a, aa);
 
@@ -526,8 +541,8 @@ test('look up preceding using a specified root', function(t) {
 
 test('following with a child', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
+        const a = o();
+        const aa = o();
 
         tree.appendChild(a, aa);
 
@@ -539,8 +554,8 @@ test('following with a child', function(t) {
 
 test('following with a nextSibling sibling', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const b = {};
+        const a = o();
+        const b = o();
 
         tree.insertAfter(a, b);
 
@@ -552,9 +567,9 @@ test('following with a nextSibling sibling', function(t) {
 
 test('following with sibling of parent', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.insertAfter(a, b);
@@ -566,10 +581,10 @@ test('following with sibling of parent', function(t) {
 
 test('following with sibling of grandparent', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const aaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const aaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(aa, aaa);
@@ -582,10 +597,10 @@ test('following with sibling of grandparent', function(t) {
 
 test('following using a specified root', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const aaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const aaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(aa, aaa);
@@ -602,9 +617,9 @@ test('following using a specified root', function(t) {
 
 test('following with skipChildren', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.insertAfter(a, b);
@@ -616,12 +631,12 @@ test('following with skipChildren', function(t) {
 
 test('childrenToArray', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -640,12 +655,12 @@ test('childrenToArray', function(t) {
 
 test('childrenToArray with filter', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -675,12 +690,12 @@ test('childrenToArray with filter', function(t) {
 
 test('children iterator', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -700,12 +715,12 @@ test('children iterator', function(t) {
 
 test('children iterator reverse', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -726,10 +741,10 @@ test('children iterator reverse', function(t) {
 
 test('children iterator return value using a generator', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const ac = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const ac = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -752,14 +767,14 @@ test('children iterator return value using a generator', function(t) {
 
 test('previous sibling iterator', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const ad = {};
-        const ae = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const ad = o();
+        const ae = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -781,14 +796,14 @@ test('previous sibling iterator', function(t) {
 
 test('nextSibling sibling iterator', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const ad = {};
-        const ae = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const ad = o();
+        const ae = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -810,12 +825,12 @@ test('nextSibling sibling iterator', function(t) {
 
 test('ancestorsToArray', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -836,12 +851,12 @@ test('ancestorsToArray', function(t) {
 
 test('ancestorsToArray with filter', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -863,12 +878,12 @@ test('ancestorsToArray with filter', function(t) {
 
 test('ancestors iterator', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -891,12 +906,12 @@ test('ancestors iterator', function(t) {
 
 test('treeToArray', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -915,12 +930,12 @@ test('treeToArray', function(t) {
 
 test('treeToArray with filter', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -950,13 +965,13 @@ test('treeToArray with filter', function(t) {
 
 test('tree iterator', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -980,13 +995,13 @@ test('tree iterator', function(t) {
 
 test('tree iterator reverse', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -1010,12 +1025,12 @@ test('tree iterator reverse', function(t) {
 
 test('look up the index of an object', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -1035,12 +1050,12 @@ test('look up the index of an object', function(t) {
 
 test('cached index', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -1066,7 +1081,7 @@ test('cached index', function(t) {
         t.equal(2, tree.index(ac));
 
         // insertBefore should invalidate
-        const foo = {};
+        const foo = o();
         tree.insertBefore(ab, foo);
         t.equal(0, tree.index(aa));
         t.equal(2, tree.index(ab));
@@ -1077,12 +1092,12 @@ test('cached index', function(t) {
 
 test('cached index warmed up by childrenToArray', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -1095,7 +1110,7 @@ test('cached index warmed up by childrenToArray', function(t) {
         t.equal(1, tree.index(ab));
         t.equal(2, tree.index(ac));
 
-        tree.appendChild(a, {});
+        tree.appendChild(a, o());
         t.equal(2, tree.index(ac));
         tree.childrenToArray(a);
         t.equal(2, tree.index(ac));
@@ -1106,12 +1121,12 @@ test('cached index warmed up by childrenToArray', function(t) {
 test('children count', function(t) {
         // no need to test the caching since we already tested for that in childrenCount
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const ab = {};
-        const aba = {};
-        const ac = {};
-        const b = {};
+        const a = o();
+        const aa = o();
+        const ab = o();
+        const aba = o();
+        const ac = o();
+        const b = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(a, ab);
@@ -1130,16 +1145,16 @@ test('children count', function(t) {
 
 test('compare tree position', function(t) {
         const tree = new SymbolTree();
-        const a = {};
-        const aa = {};
-        const aaa = {};
-        const ab = {};
-        const aba = {};
-        const abaa = {};
-        const ac = {};
+        const a = o();
+        const aa = o();
+        const aaa = o();
+        const ab = o();
+        const aba = o();
+        const abaa = o();
+        const ac = o();
 
-        const b = {};
-        const ba = {};
+        const b = o();
+        const ba = o();
 
         tree.appendChild(a, aa);
         tree.appendChild(aa, aaa);
@@ -1153,7 +1168,7 @@ test('compare tree position', function(t) {
 
         t.equal(0, tree.compareTreePosition(a, a), 'object equal');
 
-        t.equal(1, tree.compareTreePosition(a, {}), 'object disconnected');
+        t.equal(1, tree.compareTreePosition(a, o()), 'object disconnected');
         t.equal(1, tree.compareTreePosition(a, b), 'object disconnected');
 
         t.equal(20, tree.compareTreePosition(a, aa), 'contained by & following');
