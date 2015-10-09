@@ -133,7 +133,7 @@ Return the parent of the given object.
 #### symbolTree.lastInclusiveDescendant(object) ⇒ <code>Object</code>
 Find the inclusive descendant that is last in tree order of the given object.
 
-`O(n)` (worst case)
+`O(n)` (worst case) where n is the depth of the subtree of `object`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -147,7 +147,8 @@ Find the preceding object (A) of the given object (B).
 An object A is preceding an object B if A and B are in the same tree
 and A comes before B in tree order.
 
-`O(n)` (worst case)
+`O(n)` (worst case) <br>
+`O(1)` (amortized when walking the entire tree)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -163,7 +164,8 @@ Find the following object (A) of the given object (B).
 An object A is following an object B if A and B are in the same tree
 and A comes after B in tree order.
 
-`O(n)` (worst case)
+`O(n)` (worst case) where n is the amount of objects in the entire tree<br>
+`O(1)` (amortized when walking the entire tree)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -178,7 +180,7 @@ and A comes after B in tree order.
 #### symbolTree.childrenToArray(parent, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
 Append all children of the given object to an array.
 
-`O(n)`
+`O(n)` where n is the amount of children of the given `parent`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -194,7 +196,7 @@ Append all children of the given object to an array.
 #### symbolTree.ancestorsToArray(object, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
 Append all inclusive ancestors of the given object to an array.
 
-`O(n)`
+`O(n)` where n is the amount of ancestors of the given `object`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -210,7 +212,7 @@ Append all inclusive ancestors of the given object to an array.
 #### symbolTree.treeToArray(root, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
 Append all descendants of the given object to an array (in tree order).
 
-`O(n)`
+`O(n)` where n is the amount of objects in the sub-tree of the given `object`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -280,8 +282,9 @@ Iterate over all inclusive ancestors of the given object
 #### symbolTree.treeIterator(root, options) ⇒ <code>Object</code>
 Iterate over all descendants of the given object (in tree order).
 
-`O(n)` for the entire iteration<br>
-`O(n)` for a single iteration (worst case)
+where n is the amount of objects in the sub-tree of the given `root`:
+`O(n)` (worst case for a single iterator)
+`O(n)` (amortized, when completing the iterator)<br>
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
@@ -296,8 +299,8 @@ Iterate over all descendants of the given object (in tree order).
 #### symbolTree.index(child) ⇒ <code>Number</code>
 Find the index of the given object (the number of preceding siblings).
 
-`O(n)`<br>
-`O(1)` (cached)
+`O(n)` where n is the amount of preceding siblings<br>
+`O(1)` (amortized, if the tree is not modified)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Number</code> - The number of preceding siblings, or -1 if the object has no parent  
@@ -310,8 +313,8 @@ Find the index of the given object (the number of preceding siblings).
 #### symbolTree.childrenCount(parent) ⇒ <code>Number</code>
 Calculate the number of children.
 
-`O(n)`<br>
-`O(1)` (cached)
+`O(n)` where n is the amount of children<br>
+`O(1)` (amortized, if the tree is not modified)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -334,7 +337,10 @@ Compare the position of an object relative to another object. A bit set is retur
 The semantics are the same as compareDocumentPosition in DOM, with the exception that
 DISCONNECTED never occurs with any other bit.
 
-`O(n)` (worst case)
+where n and m are the amount of ancestors of `left` and `right`;
+where o is the amount of children of the lowest common ancestor of `left` and `right`:
+`O(n + m + o)` (worst case)
+`O(n + m) (amortized, if the tree is not modified)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
