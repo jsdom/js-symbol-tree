@@ -4,7 +4,7 @@ Turn any collection of objects into its own efficient tree or linked list using 
 
 This library has been designed to provide an efficient backing data structure for DOM trees. You can also use this library as an efficient linked list. Any meta data is stored on your objects directly, which ensures any kind of insertion or deletion is performed in constant time. Because an ES6 `Symbol` is used, the meta data does not interfere with your object in any way.
 
-Only io.js is supported at the moment, however io.js and node.js will merge in the near future.
+Node.js 4+, io.js and modern browsers are supported.
 
 Example
 -------
