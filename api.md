@@ -340,7 +340,7 @@ DISCONNECTED never occurs with any other bit.
 where n and m are the amount of ancestors of `left` and `right`;
 where o is the amount of children of the lowest common ancestor of `left` and `right`:
 `O(n + m + o)` (worst case)
-`O(n + m) (amortized, if the tree is not modified)
+`O(n + m)` (amortized, if the tree is not modified)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
