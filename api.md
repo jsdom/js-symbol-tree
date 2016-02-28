@@ -44,7 +44,7 @@
 
 <a name="module_symbol-tree--SymbolTree+initialize"></a>
 #### symbolTree.initialize(object) ⇒ <code>Object</code>
-You can optionally initialize an object after its creation,
+You can use this function to (optionally) initialize an object right after its creation,
 to take advantage of V8's fast properties. Also useful if you would like to
 freeze your object.
 
@@ -61,7 +61,7 @@ freeze your object.
 #### symbolTree.hasChildren(object) ⇒ <code>Boolean</code>
 Returns `true` if the object has any children. Otherwise it returns `false`.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -71,9 +71,9 @@ Returns `true` if the object has any children. Otherwise it returns `false`.
 
 <a name="module_symbol-tree--SymbolTree+firstChild"></a>
 #### symbolTree.firstChild(object) ⇒ <code>Object</code>
-Return the first child of the given object.
+Returns the first child of the given object.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -83,9 +83,9 @@ Return the first child of the given object.
 
 <a name="module_symbol-tree--SymbolTree+lastChild"></a>
 #### symbolTree.lastChild(object) ⇒ <code>Object</code>
-Return the last child of the given object.
+Returns the last child of the given object.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -95,9 +95,9 @@ Return the last child of the given object.
 
 <a name="module_symbol-tree--SymbolTree+previousSibling"></a>
 #### symbolTree.previousSibling(object) ⇒ <code>Object</code>
-Return the previous sibling of the given object.
+Returns the previous sibling of the given object.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -107,9 +107,9 @@ Return the previous sibling of the given object.
 
 <a name="module_symbol-tree--SymbolTree+nextSibling"></a>
 #### symbolTree.nextSibling(object) ⇒ <code>Object</code>
-Return the nextSibling sibling of the given object.
+Returns the next sibling of the given object.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -121,7 +121,7 @@ Return the nextSibling sibling of the given object.
 #### symbolTree.parent(object) ⇒ <code>Object</code>
 Return the parent of the given object.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -133,7 +133,7 @@ Return the parent of the given object.
 #### symbolTree.lastInclusiveDescendant(object) ⇒ <code>Object</code>
 Find the inclusive descendant that is last in tree order of the given object.
 
-`O(n)` (worst case) where n is the depth of the subtree of `object`
+* `O(n)` (worst case) where `n` is the depth of the subtree of `object`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -147,8 +147,8 @@ Find the preceding object (A) of the given object (B).
 An object A is preceding an object B if A and B are in the same tree
 and A comes before B in tree order.
 
-`O(n)` (worst case) <br>
-`O(1)` (amortized when walking the entire tree)
+* `O(n)` (worst case)
+* `O(1)` (amortized when walking the entire tree)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -164,8 +164,8 @@ Find the following object (A) of the given object (B).
 An object A is following an object B if A and B are in the same tree
 and A comes after B in tree order.
 
-`O(n)` (worst case) where n is the amount of objects in the entire tree<br>
-`O(1)` (amortized when walking the entire tree)
+* `O(n)` (worst case) where `n` is the amount of objects in the entire tree
+* `O(1)` (amortized when walking the entire tree)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -180,7 +180,7 @@ and A comes after B in tree order.
 #### symbolTree.childrenToArray(parent, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
 Append all children of the given object to an array.
 
-`O(n)` where n is the amount of children of the given `parent`
+* `O(n)` where `n` is the amount of children of the given `parent`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -196,7 +196,7 @@ Append all children of the given object to an array.
 #### symbolTree.ancestorsToArray(object, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
 Append all inclusive ancestors of the given object to an array.
 
-`O(n)` where n is the amount of ancestors of the given `object`
+* `O(n)` where `n` is the amount of ancestors of the given `object`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -212,7 +212,7 @@ Append all inclusive ancestors of the given object to an array.
 #### symbolTree.treeToArray(root, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
 Append all descendants of the given object to an array (in tree order).
 
-`O(n)` where n is the amount of objects in the sub-tree of the given `object`
+* `O(n)` where `n` is the amount of objects in the sub-tree of the given `object`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -228,7 +228,7 @@ Append all descendants of the given object to an array (in tree order).
 #### symbolTree.childrenIterator(parent, [options]) ⇒ <code>Object</code>
 Iterate over all children of the given object
 
-`O(1)` for a single iteration
+* `O(1)` for a single iteration
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
@@ -243,7 +243,7 @@ Iterate over all children of the given object
 #### symbolTree.previousSiblingsIterator(object) ⇒ <code>Object</code>
 Iterate over all the previous siblings of the given object. (in reverse tree order)
 
-`O(1)` for a single iteration
+* `O(1)` for a single iteration
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
@@ -256,7 +256,7 @@ Iterate over all the previous siblings of the given object. (in reverse tree ord
 #### symbolTree.nextSiblingsIterator(object) ⇒ <code>Object</code>
 Iterate over all the next siblings of the given object. (in tree order)
 
-`O(1)` for a single iteration
+* `O(1)` for a single iteration
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
@@ -269,7 +269,7 @@ Iterate over all the next siblings of the given object. (in tree order)
 #### symbolTree.ancestorsIterator(object) ⇒ <code>Object</code>
 Iterate over all inclusive ancestors of the given object
 
-`O(1)` for a single iteration
+* `O(1)` for a single iteration
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
@@ -282,9 +282,10 @@ Iterate over all inclusive ancestors of the given object
 #### symbolTree.treeIterator(root, options) ⇒ <code>Object</code>
 Iterate over all descendants of the given object (in tree order).
 
-where n is the amount of objects in the sub-tree of the given `root`:
-`O(n)` (worst case for a single iterator)
-`O(n)` (amortized, when completing the iterator)<br>
+Where `n` is the amount of objects in the sub-tree of the given `root`:
+
+* `O(n)` (worst case for a single iteration)
+* `O(n)` (amortized, when completing the iterator)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - An iterable iterator (ES6)  
@@ -299,8 +300,8 @@ where n is the amount of objects in the sub-tree of the given `root`:
 #### symbolTree.index(child) ⇒ <code>Number</code>
 Find the index of the given object (the number of preceding siblings).
 
-`O(n)` where n is the amount of preceding siblings<br>
-`O(1)` (amortized, if the tree is not modified)
+* `O(n)` where `n` is the amount of preceding siblings
+* `O(1)` (amortized, if the tree is not modified)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Number</code> - The number of preceding siblings, or -1 if the object has no parent  
@@ -313,8 +314,8 @@ Find the index of the given object (the number of preceding siblings).
 #### symbolTree.childrenCount(parent) ⇒ <code>Number</code>
 Calculate the number of children.
 
-`O(n)` where n is the amount of children<br>
-`O(1)` (amortized, if the tree is not modified)
+* `O(n)` where `n` is the amount of children
+* `O(1)` (amortized, if the tree is not modified)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -337,10 +338,11 @@ Compare the position of an object relative to another object. A bit set is retur
 The semantics are the same as compareDocumentPosition in DOM, with the exception that
 DISCONNECTED never occurs with any other bit.
 
-where n and m are the amount of ancestors of `left` and `right`;
-where o is the amount of children of the lowest common ancestor of `left` and `right`:
-`O(n + m + o)` (worst case)
-`O(n + m)` (amortized, if the tree is not modified)
+where `n` and `m` are the amount of ancestors of `left` and `right`;
+where `o` is the amount of children of the lowest common ancestor of `left` and `right`:
+
+* `O(n + m + o)` (worst case)
+* `O(n + m)` (amortized, if the tree is not modified)
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 
@@ -354,7 +356,7 @@ where o is the amount of children of the lowest common ancestor of `left` and `r
 Remove the object from this tree.
 Has no effect if already removed.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - removeObject  
@@ -368,7 +370,7 @@ Has no effect if already removed.
 Insert the given object before the reference object.
 `newObject` is now the previous sibling of `referenceObject`.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - newObject  
@@ -387,7 +389,7 @@ Insert the given object before the reference object.
 Insert the given object after the reference object.
 `newObject` is now the next sibling of `referenceObject`.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - newObject  
@@ -406,7 +408,7 @@ Insert the given object after the reference object.
 Insert the given object as the first child of the given reference object.
 `newObject` is now the first child of `referenceObject`.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - newObject  
@@ -425,7 +427,7 @@ Insert the given object as the first child of the given reference object.
 Insert the given object as the last child of the given reference object.
 `newObject` is now the last child of `referenceObject`.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of <code>[SymbolTree](#exp_module_symbol-tree--SymbolTree)</code>  
 **Returns**: <code>Object</code> - newObject  
