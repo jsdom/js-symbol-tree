@@ -22,6 +22,7 @@
     "dom",
     "symbol"
   ],
+  "files": ["lib", "api.md"],
   "author": "Joris van der Wel <joris@jorisvanderwel.com>",
   "license": "MIT",
   "bugs": {
