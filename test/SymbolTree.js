@@ -1,24 +1,25 @@
 'use strict';
 
-const SymbolTree = require('..');
 const test = require('tape');
+
+const SymbolTree = require('..');
 
 function o() {
         // return an object that is unique in a deepEqual check
 
         return {
-                unique : Symbol()
+                unique: Symbol(),
         };
 }
 
-test('test case internal prerequisite', function(t) {
+test('test case internal prerequisite', (t) => {
         const a = o();
         t.notDeepEqual([o()], [o()]);
         t.deepEqual([a], [a]);
         t.end();
 });
 
-test('initialize', function(t) {
+test('initialize', (t) => {
         const tree = new SymbolTree();
         const obj = {foo: 'bar'};
 
@@ -29,21 +30,21 @@ test('initialize', function(t) {
         t.end();
 });
 
-test('unassociated object', function(t) {
+test('unassociated object', (t) => {
         const tree = new SymbolTree();
         const a = o();
 
-        t.equal(false, tree.hasChildren    (a));
-        t.equal(null , tree.firstChild     (a));
-        t.equal(null , tree.lastChild      (a));
-        t.equal(null , tree.previousSibling(a));
-        t.equal(null , tree.nextSibling    (a));
-        t.equal(null , tree.parent         (a));
+        t.equal(false, tree.hasChildren(a));
+        t.equal(null, tree.firstChild(a));
+        t.equal(null, tree.lastChild(a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(null, tree.nextSibling(a));
+        t.equal(null, tree.parent(a));
 
         t.end();
 });
 
-test('insertBefore without parent or siblings', function(t) {
+test('insertBefore without parent or siblings', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -51,95 +52,95 @@ test('insertBefore without parent or siblings', function(t) {
         t.equal(a, tree.insertBefore(b, a));
 
         t.equal(false, tree.hasChildren(a));
-        t.equal(null , tree.firstChild (a));
-        t.equal(null , tree.lastChild  (a));
-        t.equal(null , tree.parent     (a));
+        t.equal(null, tree.firstChild(a));
+        t.equal(null, tree.lastChild(a));
+        t.equal(null, tree.parent(a));
         t.equal(false, tree.hasChildren(b));
-        t.equal(null , tree.firstChild (b));
-        t.equal(null , tree.lastChild  (b));
-        t.equal(null , tree.parent     (b));
+        t.equal(null, tree.firstChild(b));
+        t.equal(null, tree.lastChild(b));
+        t.equal(null, tree.parent(b));
 
-        t.equal(null , tree.previousSibling(a));
-        t.equal(b    , tree.nextSibling(a));
-        t.equal(a    , tree.previousSibling(b));
-        t.equal(null , tree.nextSibling(b));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(b, tree.nextSibling(a));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
 
         t.end();
 });
 
-test('insertAfter without parent or siblings', function(t) {
+test('insertAfter without parent or siblings', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
 
         t.equal(b, tree.insertAfter(a, b));
 
-        t.equal(false, tree.hasChildren (a));
-        t.equal(null , tree.firstChild  (a));
-        t.equal(null , tree.lastChild   (a));
-        t.equal(null , tree.parent      (a));
-        t.equal(false, tree.hasChildren (b));
-        t.equal(null , tree.firstChild  (b));
-        t.equal(null , tree.lastChild   (b));
-        t.equal(null , tree.parent      (b));
+        t.equal(false, tree.hasChildren(a));
+        t.equal(null, tree.firstChild(a));
+        t.equal(null, tree.lastChild(a));
+        t.equal(null, tree.parent(a));
+        t.equal(false, tree.hasChildren(b));
+        t.equal(null, tree.firstChild(b));
+        t.equal(null, tree.lastChild(b));
+        t.equal(null, tree.parent(b));
 
-        t.equal(null , tree.previousSibling(a));
-        t.equal(b    , tree.nextSibling(a));
-        t.equal(a    , tree.previousSibling(b));
-        t.equal(null , tree.nextSibling(b));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(b, tree.nextSibling(a));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
 
         t.end();
 });
 
-test('prependChild without children', function(t) {
+test('prependChild without children', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
 
         t.equal(a, tree.prependChild(parent, a));
 
-        t.equal(false , tree.hasChildren    (a));
-        t.equal(null  , tree.firstChild     (a));
-        t.equal(null  , tree.lastChild      (a));
-        t.equal(null  , tree.previousSibling(a));
-        t.equal(null  , tree.nextSibling    (a));
-        t.equal(parent, tree.parent         (a));
+        t.equal(false, tree.hasChildren(a));
+        t.equal(null, tree.firstChild(a));
+        t.equal(null, tree.lastChild(a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(null, tree.nextSibling(a));
+        t.equal(parent, tree.parent(a));
 
-        t.equal(true , tree.hasChildren    (parent));
-        t.equal(a    , tree.firstChild     (parent));
-        t.equal(a    , tree.lastChild      (parent));
-        t.equal(null , tree.previousSibling(a));
-        t.equal(null , tree.nextSibling    (parent));
-        t.equal(null , tree.parent         (parent));
+        t.equal(true, tree.hasChildren(parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(a, tree.lastChild(parent));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(null, tree.nextSibling(parent));
+        t.equal(null, tree.parent(parent));
 
         t.end();
 });
 
-test('appendChild without children', function(t) {
+test('appendChild without children', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
 
         t.equal(a, tree.appendChild(parent, a));
 
-        t.equal(false , tree.hasChildren    (a));
-        t.equal(null  , tree.firstChild     (a));
-        t.equal(null  , tree.lastChild      (a));
-        t.equal(null  , tree.previousSibling(a));
-        t.equal(null  , tree.nextSibling    (a));
-        t.equal(parent, tree.parent         (a));
+        t.equal(false, tree.hasChildren(a));
+        t.equal(null, tree.firstChild(a));
+        t.equal(null, tree.lastChild(a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(null, tree.nextSibling(a));
+        t.equal(parent, tree.parent(a));
 
-        t.equal(true , tree.hasChildren    (parent));
-        t.equal(a    , tree.firstChild     (parent));
-        t.equal(a    , tree.lastChild      (parent));
-        t.equal(null , tree.previousSibling(a));
-        t.equal(null , tree.nextSibling    (parent));
-        t.equal(null , tree.parent         (parent));
+        t.equal(true, tree.hasChildren(parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(a, tree.lastChild(parent));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(null, tree.nextSibling(parent));
+        t.equal(null, tree.parent(parent));
 
         t.end();
 });
 
-test('prependChild with children', function(t) {
+test('prependChild with children', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
@@ -148,21 +149,21 @@ test('prependChild with children', function(t) {
         tree.prependChild(parent, b);
         tree.prependChild(parent, a);
 
-        t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.firstChild (parent));
-        t.equal(b    , tree.lastChild  (parent));
+        t.equal(true, tree.hasChildren(parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(b, tree.lastChild(parent));
 
-        t.equal(parent, tree.parent         (a));
-        t.equal(null  , tree.previousSibling(a));
-        t.equal(b     , tree.nextSibling    (a));
+        t.equal(parent, tree.parent(a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(b, tree.nextSibling(a));
 
-        t.equal(parent, tree.parent         (b));
-        t.equal(a     , tree.previousSibling(b));
-        t.equal(null  , tree.nextSibling    (b));
+        t.equal(parent, tree.parent(b));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
         t.end();
 });
 
-test('appendChild with children', function(t) {
+test('appendChild with children', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
@@ -171,21 +172,21 @@ test('appendChild with children', function(t) {
         tree.appendChild(parent, a);
         tree.appendChild(parent, b);
 
-        t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.firstChild (parent));
-        t.equal(b    , tree.lastChild  (parent));
+        t.equal(true, tree.hasChildren(parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(b, tree.lastChild(parent));
 
-        t.equal(parent, tree.parent         (a));
-        t.equal(null  , tree.previousSibling(a));
-        t.equal(b     , tree.nextSibling    (a));
+        t.equal(parent, tree.parent(a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(b, tree.nextSibling(a));
 
-        t.equal(parent, tree.parent         (b));
-        t.equal(a     , tree.previousSibling(b));
-        t.equal(null  , tree.nextSibling    (b));
+        t.equal(parent, tree.parent(b));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
         t.end();
 });
 
-test('insertBefore with parent', function(t) {
+test('insertBefore with parent', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
@@ -194,21 +195,21 @@ test('insertBefore with parent', function(t) {
         tree.prependChild(parent, b);
         tree.insertBefore(b, a);
 
-        t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.firstChild (parent));
-        t.equal(b    , tree.lastChild  (parent));
+        t.equal(true, tree.hasChildren(parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(b, tree.lastChild(parent));
 
-        t.equal(parent, tree.parent         (a));
-        t.equal(null  , tree.previousSibling(a));
-        t.equal(b     , tree.nextSibling    (a));
+        t.equal(parent, tree.parent(a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(b, tree.nextSibling(a));
 
-        t.equal(parent, tree.parent         (b));
-        t.equal(a     , tree.previousSibling(b));
-        t.equal(null  , tree.nextSibling    (b));
+        t.equal(parent, tree.parent(b));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
         t.end();
 });
 
-test('insertAfter with parent', function(t) {
+test('insertAfter with parent', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
@@ -217,21 +218,21 @@ test('insertAfter with parent', function(t) {
         tree.appendChild(parent, a);
         tree.insertAfter(a, b);
 
-        t.equal(true , tree.hasChildren(parent));
-        t.equal(a    , tree.firstChild (parent));
-        t.equal(b    , tree.lastChild  (parent));
+        t.equal(true, tree.hasChildren(parent));
+        t.equal(a, tree.firstChild(parent));
+        t.equal(b, tree.lastChild(parent));
 
-        t.equal(parent, tree.parent         (a));
-        t.equal(null  , tree.previousSibling(a));
-        t.equal(b     , tree.nextSibling    (a));
+        t.equal(parent, tree.parent(a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(b, tree.nextSibling(a));
 
-        t.equal(parent, tree.parent         (b));
-        t.equal(a     , tree.previousSibling(b));
-        t.equal(null  , tree.nextSibling    (b));
+        t.equal(parent, tree.parent(b));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
         t.end();
 });
 
-test('insertBefore with siblings', function(t) {
+test('insertBefore with siblings', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -241,18 +242,18 @@ test('insertBefore with siblings', function(t) {
         tree.insertBefore(c, b);
 
         t.equal(null, tree.previousSibling(a));
-        t.equal(b   , tree.nextSibling(a));
+        t.equal(b, tree.nextSibling(a));
 
-        t.equal(a   , tree.previousSibling(b));
-        t.equal(c   , tree.nextSibling(b));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(c, tree.nextSibling(b));
 
-        t.equal(b   , tree.previousSibling(c));
+        t.equal(b, tree.previousSibling(c));
         t.equal(null, tree.nextSibling(c));
 
         t.end();
 });
 
-test('insertAfter with siblings', function(t) {
+test('insertAfter with siblings', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -262,18 +263,18 @@ test('insertAfter with siblings', function(t) {
         tree.insertAfter(a, b);
 
         t.equal(null, tree.previousSibling(a));
-        t.equal(b   , tree.nextSibling(a));
+        t.equal(b, tree.nextSibling(a));
 
-        t.equal(a   , tree.previousSibling(b));
-        t.equal(c   , tree.nextSibling(b));
+        t.equal(a, tree.previousSibling(b));
+        t.equal(c, tree.nextSibling(b));
 
-        t.equal(b   , tree.previousSibling(c));
+        t.equal(b, tree.previousSibling(c));
         t.equal(null, tree.nextSibling(c));
 
         t.end();
 });
 
-test('remove with previous sibling', function(t) {
+test('remove with previous sibling', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -282,17 +283,17 @@ test('remove with previous sibling', function(t) {
         tree.remove(b);
 
         t.equal(null, tree.previousSibling(a));
-        t.equal(null, tree.nextSibling    (a));
-        t.equal(null, tree.parent         (a));
+        t.equal(null, tree.nextSibling(a));
+        t.equal(null, tree.parent(a));
 
         t.equal(null, tree.previousSibling(b));
-        t.equal(null, tree.nextSibling    (b));
-        t.equal(null, tree.parent         (b));
+        t.equal(null, tree.nextSibling(b));
+        t.equal(null, tree.parent(b));
 
         t.end();
 });
 
-test('remove with next sibling', function(t) {
+test('remove with next sibling', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -301,17 +302,17 @@ test('remove with next sibling', function(t) {
         tree.remove(a);
 
         t.equal(null, tree.previousSibling(a));
-        t.equal(null, tree.nextSibling    (a));
-        t.equal(null, tree.parent (a));
+        t.equal(null, tree.nextSibling(a));
+        t.equal(null, tree.parent(a));
 
         t.equal(null, tree.previousSibling(b));
-        t.equal(null, tree.nextSibling    (b));
-        t.equal(null, tree.parent (b));
+        t.equal(null, tree.nextSibling(b));
+        t.equal(null, tree.parent(b));
 
         t.end();
 });
 
-test('remove with siblings', function(t) {
+test('remove with siblings', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -321,22 +322,22 @@ test('remove with siblings', function(t) {
         tree.insertAfter(b, c);
         tree.remove(b);
 
-        t.equal(null, tree.previousSibling   (a));
-        t.equal(c   , tree.nextSibling   (a));
-        t.equal(null, tree.parent (a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(c, tree.nextSibling(a));
+        t.equal(null, tree.parent(a));
 
-        t.equal(null, tree.previousSibling   (b));
-        t.equal(null, tree.nextSibling   (b));
-        t.equal(null, tree.parent (b));
+        t.equal(null, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
+        t.equal(null, tree.parent(b));
 
-        t.equal(a   , tree.previousSibling   (c));
-        t.equal(null, tree.nextSibling   (c));
-        t.equal(null, tree.parent (c));
+        t.equal(a, tree.previousSibling(c));
+        t.equal(null, tree.nextSibling(c));
+        t.equal(null, tree.parent(c));
 
         t.end();
 });
 
-test('remove with parent', function(t) {
+test('remove with parent', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
@@ -346,12 +347,12 @@ test('remove with parent', function(t) {
 
         t.equal(null, tree.parent(a));
         t.equal(null, tree.firstChild(parent));
-        t.equal(null, tree.lastChild (parent));
+        t.equal(null, tree.lastChild(parent));
 
         t.end();
 });
 
-test('remove with children', function(t) {
+test('remove with children', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
@@ -361,12 +362,12 @@ test('remove with children', function(t) {
 
         t.equal(parent, tree.parent(a));
         t.equal(a, tree.firstChild(parent));
-        t.equal(a, tree.lastChild (parent));
+        t.equal(a, tree.lastChild(parent));
 
         t.end();
 });
 
-test('remove with parent and siblings', function(t) {
+test('remove with parent and siblings', (t) => {
         const tree = new SymbolTree();
         const parent = o();
         const a = o();
@@ -379,24 +380,24 @@ test('remove with parent and siblings', function(t) {
         tree.remove(b);
 
         t.equal(a, tree.firstChild(parent));
-        t.equal(c, tree.lastChild (parent));
+        t.equal(c, tree.lastChild(parent));
 
-        t.equal(null  , tree.previousSibling   (a));
-        t.equal(c     , tree.nextSibling   (a));
-        t.equal(parent, tree.parent (a));
+        t.equal(null, tree.previousSibling(a));
+        t.equal(c, tree.nextSibling(a));
+        t.equal(parent, tree.parent(a));
 
-        t.equal(null  , tree.previousSibling   (b));
-        t.equal(null  , tree.nextSibling   (b));
-        t.equal(null  , tree.parent (b));
+        t.equal(null, tree.previousSibling(b));
+        t.equal(null, tree.nextSibling(b));
+        t.equal(null, tree.parent(b));
 
-        t.equal(a     , tree.previousSibling   (c));
-        t.equal(null  , tree.nextSibling   (c));
-        t.equal(parent, tree.parent (c));
+        t.equal(a, tree.previousSibling(c));
+        t.equal(null, tree.nextSibling(c));
+        t.equal(parent, tree.parent(c));
 
         t.end();
 });
 
-test('inserting an already associated object should fail', function(t) {
+test('inserting an already associated object should fail', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -406,32 +407,32 @@ test('inserting an already associated object should fail', function(t) {
         // jscs:disable requireBlocksOnNewline
 
         // `nextSibling` check
-        t.throws(function() { tree.insertBefore(b, a); }, /already present/);
-        t.throws(function() { tree.insertAfter (b, a); }, /already present/);
-        t.throws(function() { tree.prependChild (b, a); }, /already present/);
-        t.throws(function() { tree.appendChild  (b, a); }, /already present/);
+        t.throws(() => { tree.insertBefore(b, a); }, /already present/);
+        t.throws(() => { tree.insertAfter(b, a); }, /already present/);
+        t.throws(() => { tree.prependChild(b, a); }, /already present/);
+        t.throws(() => { tree.appendChild(b, a); }, /already present/);
 
         // `previousSibling` check
-        t.throws(function() { tree.insertBefore(a, b); }, /already present/);
-        t.throws(function() { tree.insertAfter (a, b); }, /already present/);
-        t.throws(function() { tree.prependChild (a, b); }, /already present/);
-        t.throws(function() { tree.appendChild  (a, b); }, /already present/);
+        t.throws(() => { tree.insertBefore(a, b); }, /already present/);
+        t.throws(() => { tree.insertAfter(a, b); }, /already present/);
+        t.throws(() => { tree.prependChild(a, b); }, /already present/);
+        t.throws(() => { tree.appendChild(a, b); }, /already present/);
 
         tree.remove(a);
 
         tree.prependChild(b, a);
         // `parent` check
-        t.throws(function() { tree.insertBefore(b, a); }, /already present/);
-        t.throws(function() { tree.insertAfter (b, a); }, /already present/);
-        t.throws(function() { tree.prependChild (b, a); }, /already present/);
-        t.throws(function() { tree.appendChild  (b, a); }, /already present/);
+        t.throws(() => { tree.insertBefore(b, a); }, /already present/);
+        t.throws(() => { tree.insertAfter(b, a); }, /already present/);
+        t.throws(() => { tree.prependChild(b, a); }, /already present/);
+        t.throws(() => { tree.appendChild(b, a); }, /already present/);
 
         // jscs:enable requireBlocksOnNewline
 
         t.end();
 });
 
-test('Multiple SymbolTree instances should not conflict', function(t) {
+test('Multiple SymbolTree instances should not conflict', (t) => {
         const tree1 = new SymbolTree();
         const tree2 = new SymbolTree();
         const a = o();
@@ -441,19 +442,19 @@ test('Multiple SymbolTree instances should not conflict', function(t) {
         tree2.insertBefore(a, b);
 
         t.equal(null, tree1.previousSibling(a));
-        t.equal(b   , tree1.nextSibling(a));
-        t.equal(a   , tree1.previousSibling(b));
+        t.equal(b, tree1.nextSibling(a));
+        t.equal(a, tree1.previousSibling(b));
         t.equal(null, tree1.nextSibling(b));
 
         t.equal(null, tree2.previousSibling(b));
-        t.equal(a   , tree2.nextSibling(b));
-        t.equal(b   , tree2.previousSibling(a));
+        t.equal(a, tree2.nextSibling(b));
+        t.equal(b, tree2.previousSibling(a));
         t.equal(null, tree2.nextSibling(a));
 
         t.end();
 });
 
-test('lastInclusiveDescendant', function(t) {
+test('lastInclusiveDescendant', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -473,7 +474,7 @@ test('lastInclusiveDescendant', function(t) {
         t.end();
 });
 
-test('look up preceding with a previous sibling', function(t) {
+test('look up preceding with a previous sibling', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
@@ -486,7 +487,7 @@ test('look up preceding with a previous sibling', function(t) {
         t.end();
 });
 
-test('look up preceding with a previous sibling with a child', function(t) {
+test('look up preceding with a previous sibling with a child', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -498,14 +499,14 @@ test('look up preceding with a previous sibling with a child', function(t) {
         tree.insertAfter(a, b);
 
         t.equal(null, tree.preceding(a));
-        t.equal(a   , tree.preceding(aa));
-        t.equal(aa  , tree.preceding(ab));
-        t.equal(ab  , tree.preceding(b));
+        t.equal(a, tree.preceding(aa));
+        t.equal(aa, tree.preceding(ab));
+        t.equal(ab, tree.preceding(b));
 
         t.end();
 });
 
-test('look up preceding with a previous sibling with a descendants', function(t) {
+test('look up preceding with a previous sibling with a descendants', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -525,47 +526,47 @@ test('look up preceding with a previous sibling with a descendants', function(t)
         t.end();
 });
 
-test('look up preceding using a specified root', function(t) {
+test('look up preceding using a specified root', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
 
         tree.appendChild(a, aa);
 
-        t.equal(null, tree.preceding(a , {root: a}));
-        t.equal(a   , tree.preceding(aa, {root: a}));
+        t.equal(null, tree.preceding(a, {root: a}));
+        t.equal(a, tree.preceding(aa, {root: a}));
         t.equal(null, tree.preceding(aa, {root: aa}));
 
         t.end();
 });
 
-test('following with a child', function(t) {
+test('following with a child', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
 
         tree.appendChild(a, aa);
 
-        t.equal(aa  , tree.following(a));
+        t.equal(aa, tree.following(a));
         t.equal(null, tree.following(aa));
 
         t.end();
 });
 
-test('following with a nextSibling sibling', function(t) {
+test('following with a nextSibling sibling', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const b = o();
 
         tree.insertAfter(a, b);
 
-        t.equal(b   , tree.following(a));
+        t.equal(b, tree.following(a));
         t.equal(null, tree.following(b));
 
         t.end();
 });
 
-test('following with sibling of parent', function(t) {
+test('following with sibling of parent', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -579,7 +580,7 @@ test('following with sibling of parent', function(t) {
         t.end();
 });
 
-test('following with sibling of grandparent', function(t) {
+test('following with sibling of grandparent', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -595,7 +596,7 @@ test('following with sibling of grandparent', function(t) {
         t.end();
 });
 
-test('following using a specified root', function(t) {
+test('following using a specified root', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -609,13 +610,13 @@ test('following using a specified root', function(t) {
         t.equal(null, tree.following(aaa, {root: aaa}));
         t.equal(null, tree.following(aaa, {root: aa}));
         t.equal(null, tree.following(aaa, {root: a}));
-        t.equal(aa  , tree.following(a  , {root: a}));
-        t.equal(aaa , tree.following(aa , {root: a}));
+        t.equal(aa, tree.following(a, {root: a}));
+        t.equal(aaa, tree.following(aa, {root: a}));
 
         t.end();
 });
 
-test('following with skipChildren', function(t) {
+test('following with skipChildren', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -629,7 +630,7 @@ test('following with skipChildren', function(t) {
         t.end();
 });
 
-test('childrenToArray', function(t) {
+test('childrenToArray', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -653,7 +654,7 @@ test('childrenToArray', function(t) {
         t.end();
 });
 
-test('childrenToArray with filter', function(t) {
+test('childrenToArray with filter', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -688,7 +689,7 @@ test('childrenToArray with filter', function(t) {
         t.end();
 });
 
-test('children iterator', function(t) {
+test('children iterator', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -713,7 +714,7 @@ test('children iterator', function(t) {
         t.end();
 });
 
-test('children iterator reverse', function(t) {
+test('children iterator reverse', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -739,7 +740,7 @@ test('children iterator reverse', function(t) {
 });
 
 
-test('children iterator return value using a generator', function(t) {
+test('children iterator return value using a generator', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -765,7 +766,7 @@ test('children iterator return value using a generator', function(t) {
         t.end();
 });
 
-test('previous sibling iterator', function(t) {
+test('previous sibling iterator', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -794,7 +795,7 @@ test('previous sibling iterator', function(t) {
         t.end();
 });
 
-test('nextSibling sibling iterator', function(t) {
+test('nextSibling sibling iterator', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -823,7 +824,7 @@ test('nextSibling sibling iterator', function(t) {
         t.end();
 });
 
-test('ancestorsToArray', function(t) {
+test('ancestorsToArray', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -849,7 +850,7 @@ test('ancestorsToArray', function(t) {
         t.end();
 });
 
-test('ancestorsToArray with filter', function(t) {
+test('ancestorsToArray with filter', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -876,7 +877,7 @@ test('ancestorsToArray with filter', function(t) {
         t.end();
 });
 
-test('ancestors iterator', function(t) {
+test('ancestors iterator', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -904,7 +905,7 @@ test('ancestors iterator', function(t) {
         t.end();
 });
 
-test('treeToArray', function(t) {
+test('treeToArray', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -928,7 +929,7 @@ test('treeToArray', function(t) {
         t.end();
 });
 
-test('treeToArray with filter', function(t) {
+test('treeToArray with filter', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -963,7 +964,7 @@ test('treeToArray with filter', function(t) {
         t.end();
 });
 
-test('tree iterator', function(t) {
+test('tree iterator', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -993,7 +994,7 @@ test('tree iterator', function(t) {
         t.end();
 });
 
-test('tree iterator reverse', function(t) {
+test('tree iterator reverse', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -1023,7 +1024,7 @@ test('tree iterator reverse', function(t) {
         t.end();
 });
 
-test('look up the index of an object', function(t) {
+test('look up the index of an object', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -1048,7 +1049,7 @@ test('look up the index of an object', function(t) {
         t.end();
 });
 
-test('cached index', function(t) {
+test('cached index', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -1090,7 +1091,7 @@ test('cached index', function(t) {
         t.end();
 });
 
-test('cached index warmed up by childrenToArray', function(t) {
+test('cached index warmed up by childrenToArray', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
@@ -1118,7 +1119,7 @@ test('cached index warmed up by childrenToArray', function(t) {
         t.end();
 });
 
-test('children count', function(t) {
+test('children count', (t) => {
         // no need to test the caching since we already tested for that in childrenCount
         const tree = new SymbolTree();
         const a = o();
@@ -1143,7 +1144,7 @@ test('children count', function(t) {
 });
 
 
-test('compare tree position', function(t) {
+test('compare tree position', (t) => {
         const tree = new SymbolTree();
         const a = o();
         const aa = o();
