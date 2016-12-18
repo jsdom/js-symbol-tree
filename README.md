@@ -1,6 +1,6 @@
 symbol-tree
 ===========
-![Travis CI Build Status](https://api.travis-ci.org/jsdom/js-symbol-tree.svg?branch=master)
+[![Travis CI Build Status](https://api.travis-ci.org/jsdom/js-symbol-tree.svg?branch=master)](https://travis-ci.org/jsdom/js-symbol-tree) [![Coverage Status](https://coveralls.io/repos/github/jsdom/js-symbol-tree/badge.svg?branch=master)](https://coveralls.io/github/jsdom/js-symbol-tree?branch=master)
 
 Turn any collection of objects into its own efficient tree or linked list using `Symbol`.
 
