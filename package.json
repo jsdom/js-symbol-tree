@@ -40,8 +40,8 @@
     "coveralls": "^2.11.15",
     "eslint": "^3.12.0",
     "eslint-plugin-import": "^2.2.0",
-    "istanbul": "^0.3.17",
-    "jsdoc-to-markdown": "^1.1.1",
+    "istanbul": "^0.4.5",
+    "jsdoc-to-markdown": "^2.0.1",
     "tape": "^4.0.0"
   }
 }
