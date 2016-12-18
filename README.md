@@ -1,5 +1,7 @@
 symbol-tree
 ===========
+![Travis CI Build Status](https://api.travis-ci.org/jsdom/js-symbol-tree.svg?branch=master)
+
 Turn any collection of objects into its own efficient tree or linked list using `Symbol`.
 
 This library has been designed to provide an efficient backing data structure for DOM trees. You can also use this library as an efficient linked list. Any meta data is stored on your objects directly, which ensures any kind of insertion or deletion is performed in constant time. Because an ES6 `Symbol` is used, the meta data does not interfere with your object in any way.
