@@ -27,8 +27,7 @@
     "symbol"
   ],
   "files": [
-    "lib",
-    "api.md"
+    "lib"
   ],
   "author": "Joris van der Wel <joris@jorisvanderwel.com>",
   "license": "MIT",
