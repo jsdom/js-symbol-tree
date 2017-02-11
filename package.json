@@ -9,7 +9,8 @@
     "posttest": "npm run lint",
     "ci": "istanbul cover test/SymbolTree.js --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "postci": "npm run posttest",
-    "documentation": "jsdoc2md --files lib/SymbolTree.js > ./jsdoc/api.md"
+    "predocumentation": "cp readme-header.md README.md",
+    "documentation": "jsdoc2md --files lib/SymbolTree.js >> README.md"
   },
   "repository": {
     "type": "git",
