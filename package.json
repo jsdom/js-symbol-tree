@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/jsdom/js-symbol-tree#symbol-tree",
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
+    "babel-eslint": "^8.0.0",
     "coveralls": "^2.11.15",
     "eslint": "^4.1.0",
     "eslint-plugin-import": "^2.2.0",
