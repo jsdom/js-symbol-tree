@@ -41,7 +41,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.2.0",
     "istanbul": "^0.4.5",
-    "jsdoc-to-markdown": "^3.0.0",
+    "jsdoc-to-markdown": "^5.0.0",
     "tape": "^4.0.0"
   }
 }
