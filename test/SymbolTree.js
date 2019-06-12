@@ -739,7 +739,6 @@ test('children iterator reverse', (t) => {
         t.end();
 });
 
-
 test('children iterator return value using a generator', (t) => {
         const tree = new SymbolTree();
         const a = o();
@@ -1118,7 +1117,6 @@ test('cached index warmed up by childrenToArray', (t) => {
 
         t.end();
 });
-
 
 test('cached index purge', (t) => {
         const tree = new SymbolTree();
