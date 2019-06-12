@@ -1119,6 +1119,28 @@ test('cached index warmed up by childrenToArray', (t) => {
         t.end();
 });
 
+
+test('cached index purge', (t) => {
+        const tree = new SymbolTree();
+        const a = o();
+        const aa = o();
+        const b = o();
+        const ba = o();
+        const bb = o();
+
+        tree.appendChild(a, aa);
+        tree.appendChild(b, ba);
+        tree.appendChild(b, bb);
+  
+        t.equal(0, tree.index(ba));
+        tree.remove(ba);
+        t.equal(-1, tree.index(ba));
+        tree.appendChild(a,ba);
+        t.equal(1, tree.index(ba));
+
+        t.end();
+});
+
 test('children count', (t) => {
         // no need to test the caching since we already tested for that in childrenCount
         const tree = new SymbolTree();
