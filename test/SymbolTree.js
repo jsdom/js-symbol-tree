@@ -739,7 +739,6 @@ test('children iterator reverse', (t) => {
         t.end();
 });
 
-
 test('children iterator return value using a generator', (t) => {
         const tree = new SymbolTree();
         const a = o();
@@ -1115,6 +1114,27 @@ test('cached index warmed up by childrenToArray', (t) => {
         t.equal(2, tree.index(ac));
         tree.childrenToArray(a);
         t.equal(2, tree.index(ac));
+
+        t.end();
+});
+
+test('regression test: remove() should invalidate the child index cache', (t) => {
+        const tree = new SymbolTree();
+        const a = o();
+        const aa = o();
+        const b = o();
+        const ba = o();
+        const bb = o();
+
+        tree.appendChild(a, aa);
+        tree.appendChild(b, ba);
+        tree.appendChild(b, bb);
+
+        t.equal(0, tree.index(ba));
+        tree.remove(ba);
+        t.equal(-1, tree.index(ba));
+        tree.appendChild(a, ba);
+        t.equal(1, tree.index(ba));
 
         t.end();
 });
