@@ -1129,11 +1129,11 @@ test('cached index purge', (t) => {
         tree.appendChild(a, aa);
         tree.appendChild(b, ba);
         tree.appendChild(b, bb);
-  
+
         t.equal(0, tree.index(ba));
         tree.remove(ba);
         t.equal(-1, tree.index(ba));
-        tree.appendChild(a,ba);
+        tree.appendChild(a, ba);
         t.equal(1, tree.index(ba));
 
         t.end();
