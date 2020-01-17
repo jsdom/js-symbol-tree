@@ -96,7 +96,7 @@ API Documentation
         * [.previousSiblingsIterator(object)](#module_symbol-tree--SymbolTree+previousSiblingsIterator) ⇒ <code>Object</code>
         * [.nextSiblingsIterator(object)](#module_symbol-tree--SymbolTree+nextSiblingsIterator) ⇒ <code>Object</code>
         * [.ancestorsIterator(object)](#module_symbol-tree--SymbolTree+ancestorsIterator) ⇒ <code>Object</code>
-        * [.treeIterator(root, options)](#module_symbol-tree--SymbolTree+treeIterator) ⇒ <code>Object</code>
+        * [.treeIterator(root, [options])](#module_symbol-tree--SymbolTree+treeIterator) ⇒ <code>Object</code>
         * [.index(child)](#module_symbol-tree--SymbolTree+index) ⇒ <code>Number</code>
         * [.childrenCount(parent)](#module_symbol-tree--SymbolTree+childrenCount) ⇒ <code>Number</code>
         * [.compareTreePosition(left, right)](#module_symbol-tree--SymbolTree+compareTreePosition) ⇒ <code>Number</code>
@@ -125,7 +125,7 @@ You can use this function to (optionally) initialize an object right after its c
 to take advantage of V8's fast properties. Also useful if you would like to
 freeze your object.
 
-`O(1)`
+* `O(1)`
 
 **Kind**: instance method of [<code>SymbolTree</code>](#exp_module_symbol-tree--SymbolTree)  
 **Returns**: <code>Object</code> - object  
@@ -373,7 +373,7 @@ Iterate over all inclusive ancestors of the given object
 
 <a name="module_symbol-tree--SymbolTree+treeIterator"></a>
 
-#### symbolTree.treeIterator(root, options) ⇒ <code>Object</code>
+#### symbolTree.treeIterator(root, [options]) ⇒ <code>Object</code>
 Iterate over all descendants of the given object (in tree order).
 
 Where `n` is the amount of objects in the sub-tree of the given `root`:
@@ -387,7 +387,7 @@ Where `n` is the amount of objects in the sub-tree of the given `root`:
 | Param | Type | Default |
 | --- | --- | --- |
 | root | <code>Object</code> |  | 
-| options | <code>Object</code> |  | 
+| [options] | <code>Object</code> |  | 
 | [options.reverse] | <code>Boolean</code> | <code>false</code> | 
 
 <a name="module_symbol-tree--SymbolTree+index"></a>
